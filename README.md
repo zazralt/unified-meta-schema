@@ -32,7 +32,6 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 
 ### Example
-
 ```yaml
 shop_db:
   Customer:
@@ -54,6 +53,23 @@ shop_db:
 
 Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
 
+### JSON Representation
+```json
+{
+  "shop_db": {
+    "Customer": {
+      "customer_id": "uuid [1,1]",
+      "name": "string [1,1]",
+      "orders": "Order [0,*]"
+    },
+    "Order": {
+      "order_id": "uuid [1,1]",
+      "customer": "Customer [1,1]"
+    }
+  }
+}
+```
+
 ### CSV Representation
 | model    | entity   | attribute    | relation | data\_type | target   | min\_card | max\_card |
 | -------- | -------- | ------------ | -------- | ---------- | -------- | --------- | --------- |
@@ -62,6 +78,8 @@ Within each `{entity}` block, use spaces (no tabs) to align the first character 
 | shop\_db | Customer |              | orders   |            | Order    | 0         | \*        |
 | shop\_db | Order    | order\_id    |          | uuid       |          | 1         | 1         |
 | shop\_db | Order    |              | customer |            | Customer | 1         | 1         |
+
+
 
 
 ### Schema Types
