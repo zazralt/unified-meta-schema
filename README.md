@@ -35,6 +35,9 @@ shop_db:
 * PascalCase
 * snake_case
 
+## Alignment Rules
+Within each {entity} block, use spaces (no tabs) to align the first character of {data_type} / {target} and the opening [ of cardinality in vertical columns, with a single space after the colon and alignment applied per block only.
+
 ## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
 | --------------- | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
