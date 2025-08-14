@@ -91,29 +91,30 @@ shop_db:
 {
   "shop_db": {
     "Customer": {
-      "customer_id": "uuid [1,1] (pk)",
-      "name": "string [1,1]",
-      "orders": "Order [0,*]"
+      "customer_id": "uuid [1,1] (pk) # Primary key of Customer",
+      "name": "string [1,1] # Customer full name",
+      "orders": "Order [0,*] # All orders placed by this customer"
     },
     "Order": {
-      "order_id": "uuid [1,1] (pk)",
-      "customer_id": "uuid [1,1]",
-      "customer": "Customer.customer_id [1,1] (fk)"
+      "order_id": "uuid [1,1] (pk) # Primary key of Order",
+      "customer_id": "uuid [1,1] # Foreign key column to Customer",
+      "customer": "Customer.customer_id [1,1] (fk) # Relation via dot-notation"
     }
   }
 }
 ```
 
-### CSV Representation
+### Table Representation
 
-| `model`   | `entity`   | `attribute`   | `relation` | `data_type` | `target`               | `min_card` | `max_card` |
-| --------- | ---------- | ------------- | ---------- | ----------- | ---------------------- | ---------- | ---------- |
-| `shop_db` | `Customer` | `customer_id` |            | `uuid`      |                        | `1`        | `1`        |
-| `shop_db` | `Customer` | `name`        |            | `string`    |                        | `1`        | `1`        |
-| `shop_db` | `Customer` |               | `orders`   |             | `Order`                | `0`        | `*`        |
-| `shop_db` | `Order`    | `order_id`    |            | `uuid`      |                        | `1`        | `1`        |
-| `shop_db` | `Order`    | `customer_id` |            | `uuid`      |                        | `1`        | `1`        |
-| `shop_db` | `Order`    |               | `customer` |             | `Customer.customer_id` | `1`        | `1`        |
+| model    | entity   | attribute    | relation | data\_type | target                | min\_card | max\_card | constraint | description                        |
+| -------- | -------- | ------------ | -------- | ---------- | --------------------- | --------- | --------- | ---------- | ---------------------------------- |
+| shop\_db | Customer | customer\_id |          | uuid       |                       | 1         | 1         | pk         | Primary key of Customer            |
+| shop\_db | Customer | name         |          | string     |                       | 1         | 1         |            | Customer full name                 |
+| shop\_db | Customer |              | orders   |            | Order                 | 0         | \*        |            | All orders placed by this customer |
+| shop\_db | Order    | order\_id    |          | uuid       |                       | 1         | 1         | pk         | Primary key of Order               |
+| shop\_db | Order    | customer\_id |          | uuid       |                       | 1         | 1         |            | Foreign key column to Customer     |
+| shop\_db | Order    |              | customer |            | Customer.customer\_id | 1         | 1         | fk         | Relation via dot-notation          |
+
 
 ### Schema Types
 
