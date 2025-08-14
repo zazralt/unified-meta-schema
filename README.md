@@ -5,7 +5,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 ## Yaml
 
-## Level Structure
+### Level Structure
 1. model
 2. entity
 3. attribute or relation
