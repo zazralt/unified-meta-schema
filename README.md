@@ -1,7 +1,7 @@
 # meta-schema
 A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact format. It standardizes core modeling concepts — {model}, {entity}, {attribute}, {relation}, {data_type}, {target}, {min_card}, {max_card} — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
 
-# Overview
+# Specification
 
 ## Yaml
 
@@ -25,6 +25,11 @@ my_database:
     customer:    Customer [1,1]
 ```
 
+## Naming Conventions
+* camelCase
+* PascalCase
+* snake_case
+
 
 ## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
@@ -35,7 +40,3 @@ my_database:
 | **JSON** | schema identifier / IRI              | object     | property      | reference (\$ref-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
 | **Avro** | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
 
-
-## Naming Conventions
-* camel case
-* snake case
