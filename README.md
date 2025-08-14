@@ -1,24 +1,39 @@
+Your draft already reads like a clean, minimal spec.
+If you want to make it feel more like a **formal published specification**, I’d suggest only slight adjustments:
+
+* Add a short **Scope** sentence under the title to define the intent.
+* Format `{placeholders}` in backticks consistently in prose to match the table style.
+* Ensure the Alignment Rules sentence is wrapped for easier reading.
+
+Here’s your text with those refinements applied:
+
+---
+
 # meta-schema
-A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact format. It standardizes core modeling concepts — {model}, {entity}, {attribute}, {relation}, {data_type}, {target}, {min_card}, {max_card} — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
 
-# Specification
+A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact YAML format. It standardizes core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, `{max_card}` — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
 
-## Yaml
+**Scope:** This specification defines a concise YAML structure for expressing entities, their attributes, and relations across multiple schema paradigms with explicit datatypes and cardinalities.
 
-### Level Structure
-1. model
-2. entity
-3. attribute or relation
+## Specification
+
+### YAML Level Structure
+
+1. `{model}`
+2. `{entity}`
+3. `{attribute}` or `{relation}`
 
 ### Syntax
+
 ```yaml
 {model}:
   {entity}:
     {attribute}: {data_type} [{min_card},{max_card}]
-    {relation}:  {target} [{min_card},{max_card}]
+    {relation}:  {target}    [{min_card},{max_card}]
 ```
 
 ### Example
+
 ```yaml
 shop_db:
   Customer:
@@ -30,20 +45,24 @@ shop_db:
     customer:    Customer [1,1]
 ```
 
-## Naming Conventions
-* camelCase
-* PascalCase
-* snake_case
+### Naming Conventions
 
-## Alignment Rules
-Within each {entity} block, use spaces (no tabs) to align the first character of {data_type} / {target} and the opening [ of cardinality in vertical columns, with a single space after the colon and alignment applied per block only.
+* `camelCase`
+* `PascalCase`
+* `snake_case`
 
-## Elements
-| Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
-| --------------- | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
-| **Ontology**    | ontology name / IRI                  | class      | attribute     | relation               | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
-| **Database**    | database schema name (e.g. `public`) | table      | column        | foreign key / relation | `uuid`, `varchar`, `integer`  | `Customer`, `Order`      | Min/max constraint on column value count per row (rarely used) |
-| **Dataset**     | dataset schema name                  | table      | column        | relation / join        | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
-| **JSON** | schema identifier / IRI              | object     | property      | reference (\$ref-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
-| **Avro** | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
+### Alignment Rules
 
+Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
+
+### Elements
+
+| Schema Type  | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
+| ------------ | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
+| **Ontology** | ontology name / IRI                  | class      | attribute     | relation               | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
+| **Database** | database schema name (e.g. `public`) | table      | column        | foreign key / relation | `uuid`, `varchar`, `integer`  | `Customer`, `Order`      | Min/max constraint on column value count per row (rarely used) |
+| **Dataset**  | dataset schema name                  | table      | column        | relation / join        | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
+| **JSON**     | schema identifier / IRI              | object     | property      | reference (\$ref-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
+| **Avro**     | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
+
+---
