@@ -5,6 +5,11 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 ## Yaml
 
+## Level Structure
+1. model
+2. entity
+3. attribute or relation
+
 ### Syntax
 ```yaml
 {model}:
@@ -29,11 +34,6 @@ shop_db:
 * camelCase
 * PascalCase
 * snake_case
-
-## Level Structure
-1. model
-2. entity
-3. attribute or relation
 
 ## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
