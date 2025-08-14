@@ -21,3 +21,6 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 | **Avro** | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
 
 
+## Naming Conventions
+* camel case
+* snake case
