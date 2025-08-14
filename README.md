@@ -1,14 +1,3 @@
-Your draft already reads like a clean, minimal spec.
-If you want to make it feel more like a **formal published specification**, I’d suggest only slight adjustments:
-
-* Add a short **Scope** sentence under the title to define the intent.
-* Format `{placeholders}` in backticks consistently in prose to match the table style.
-* Ensure the Alignment Rules sentence is wrapped for easier reading.
-
-Here’s your text with those refinements applied:
-
----
-
 # meta-schema
 
 A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact YAML format. It standardizes core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, `{max_card}` — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
