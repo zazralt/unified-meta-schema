@@ -83,7 +83,6 @@ shop_db:
 
   * `{entity}`
   * `{entity}.{attribute}`
-  * `{model}.{entity}`
   * `{model}.{entity}.{attribute}`
 
 ### JSON Representation
