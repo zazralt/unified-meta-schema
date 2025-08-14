@@ -15,7 +15,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 ### Example
 ```yaml
-my_database:
+shop_db:
   Customer:
     customer_id: uuid     [1,1]
     name:        string   [1,1]
@@ -30,6 +30,10 @@ my_database:
 * PascalCase
 * snake_case
 
+## Structure
+1. model
+2. entity
+3. attribute or relation
 
 ## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
