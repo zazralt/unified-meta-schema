@@ -22,6 +22,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 ```
 
 ### Elements
+
 * **{model}** – The schema or namespace (e.g., a database name).
 * **{entity}** – The entity or table name.
 * **{attribute}** – A property with a data type.
@@ -32,6 +33,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 
 ### Example
+
 ```yaml
 shop_db:
   Customer:
@@ -49,11 +51,29 @@ shop_db:
 * `PascalCase`
 * `snake_case`
 
+### Cardinality semantics
+
+* `{min_card}` is an integer ≥ 0.
+* `{max_card}` is an integer ≥ 0 or `*` (unbounded).
+
+### Constraints (optional)
+
+* write constraint in parenthesis
+* pk: primar key
+* fk: forgein key
+
 ### Alignment Rules
 
 Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
 
+### Target Forms
+
+* **{target}** may be either `{entity}` or `{entity}.{attribute}` (dot notation) to reference a specific attribute/key in the target entity.
+
+
+
 ### JSON Representation
+
 ```json
 {
   "shop_db": {
@@ -71,6 +91,7 @@ Within each `{entity}` block, use spaces (no tabs) to align the first character 
 ```
 
 ### CSV Representation
+
 | model    | entity   | attribute    | relation | data\_type | target   | min\_card | max\_card |
 | -------- | -------- | ------------ | -------- | ---------- | -------- | --------- | --------- |
 | shop\_db | Customer | customer\_id |          | uuid       |          | 1         | 1         |
