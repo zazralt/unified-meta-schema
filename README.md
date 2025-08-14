@@ -17,12 +17,12 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 ```yaml
 my_database:
   Customer:
-    customer_id: uuid [1,1]
-    name: string [1,1]
-    orders: Order [0,*]
+    customer_id: uuid     [1,1]
+    name:        string   [1,1]
+    orders:      Order    [0,*]
   Order:
-    order_id: uuid [1,1]
-    customer: Customer [1,1]
+    order_id:    uuid     [1,1]
+    customer:    Customer [1,1]
 ```
 
 
