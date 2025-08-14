@@ -7,19 +7,17 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 ## Specification
 
 ### YAML Level Structure
-
 1. `{model}`
 2. `{entity}`
 3. `{attribute}` or `{relation}`
 
 ### Syntax
-
 ```yaml
 {model}:
   {entity}:
     {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) # description
     {relation}:  {target}    [{min_card},{max_card}] ({constraint}) # description
-```
+````
 
 ### Elements
 
@@ -30,19 +28,21 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 * **{data\_type}** – The type for attributes (empty for relations).
 * **{target}** – The target entity for relations (empty for attributes).
 * **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality.
-
+* **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)` or `(default=now(),pattern=^[A-Z]{2}\d{4}$)`).
+* **{description}** – Optional human-readable comment after `#`.
 
 ### Example
 
 ```yaml
 shop_db:
   Customer:
-    customer_id: uuid     [1,1]
-    name:        string   [1,1]
-    orders:      Order    [0,*]
+    customer_id: uuid     [1,1] (pk)                 # Primary key of Customer
+    name:        string   [1,1]                      # Customer full name
+    orders:      Order    [0,*]                      # All orders placed by this customer
   Order:
-    order_id:    uuid     [1,1]
-    customer:    Customer [1,1]
+    order_id:    uuid     [1,1] (pk)                 # Primary key of Order
+    customer_id: uuid     [1,1]                      # Foreign key column to Customer
+    customer:    Customer.customer_id [1,1] (fk)     # Relation via dot-notation
 ```
 
 ### Naming Conventions
@@ -51,38 +51,40 @@ shop_db:
 * `PascalCase`
 * `snake_case`
 
-### Data Type
+### Data Types
 
-* write always data types for attributes
+* Always specify data types for attributes.
 
 ### Cardinality
 
-* write optionally cardinalities in square brackets and comma separated
+* Optionally specify cardinalities in square brackets, comma-separated.
 * `{min_card}` is an integer ≥ 0.
 * `{max_card}` is an integer ≥ 0 or `*` (unbounded).
 
 ### Constraints
 
-* write optionally constraint in round brackets and comma separated, if necessary
-* pk: primar key
-* fk: forgein key
-* unique: unique value
-* default: default value, syntax: (default: ...)
-* pattern: regex pattern, syntax: (pattern: ...)
+* Optionally specify constraints in parentheses, comma-separated.
+* Common labels: `pk` (primary key), `fk` (foreign key), `unique`.
+* Key–value examples: `(default=now())`, `(pattern=^[A-Z]{2}\d{4}$)`.
 
 ### Description
 
-* write optionally human-readable descriptions or comments after a hash #
+* Optionally add human-readable descriptions as YAML comments after `#`.
 
 ### Alignment Rules
 
-Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
+* Use spaces only (no tabs); a two-space indent per level is recommended.
+* Within each `{entity}` block, align the first character of `{data_type}` or `{target}` vertically, and align the opening `[` of cardinality vertically.
+* Use a single space after the colon before `{data_type}` / `{target}`; apply alignment per entity block only.
 
 ### Target Forms
 
-* **{target}** may be either `{entity}` or `{entity}.{attribute}` (dot notation) to reference a specific attribute/key in the target entity.
+* `{target}` MAY be one of:
 
-
+  * `{entity}`
+  * `{entity}.{attribute}`
+  * `{model}.{entity}`
+  * `{model}.{entity}.{attribute}`
 
 ### JSON Representation
 
@@ -90,13 +92,14 @@ Within each `{entity}` block, use spaces (no tabs) to align the first character 
 {
   "shop_db": {
     "Customer": {
-      "customer_id": "uuid [1,1]",
+      "customer_id": "uuid [1,1] (pk)",
       "name": "string [1,1]",
       "orders": "Order [0,*]"
     },
     "Order": {
-      "order_id": "uuid [1,1]",
-      "customer": "Customer [1,1]"
+      "order_id": "uuid [1,1] (pk)",
+      "customer_id": "uuid [1,1]",
+      "customer": "Customer.customer_id [1,1] (fk)"
     }
   }
 }
@@ -104,25 +107,21 @@ Within each `{entity}` block, use spaces (no tabs) to align the first character 
 
 ### CSV Representation
 
-| model    | entity   | attribute    | relation | data\_type | target   | min\_card | max\_card |
-| -------- | -------- | ------------ | -------- | ---------- | -------- | --------- | --------- |
-| shop\_db | Customer | customer\_id |          | uuid       |          | 1         | 1         |
-| shop\_db | Customer | name         |          | string     |          | 1         | 1         |
-| shop\_db | Customer |              | orders   |            | Order    | 0         | \*        |
-| shop\_db | Order    | order\_id    |          | uuid       |          | 1         | 1         |
-| shop\_db | Order    |              | customer |            | Customer | 1         | 1         |
-
-
-
+| `model`   | `entity`   | `attribute`   | `relation` | `data_type` | `target`               | `min_card` | `max_card` |
+| --------- | ---------- | ------------- | ---------- | ----------- | ---------------------- | ---------- | ---------- |
+| `shop_db` | `Customer` | `customer_id` |            | `uuid`      |                        | `1`        | `1`        |
+| `shop_db` | `Customer` | `name`        |            | `string`    |                        | `1`        | `1`        |
+| `shop_db` | `Customer` |               | `orders`   |             | `Order`                | `0`        | `*`        |
+| `shop_db` | `Order`    | `order_id`    |            | `uuid`      |                        | `1`        | `1`        |
+| `shop_db` | `Order`    | `customer_id` |            | `uuid`      |                        | `1`        | `1`        |
+| `shop_db` | `Order`    |               | `customer` |             | `Customer.customer_id` | `1`        | `1`        |
 
 ### Schema Types
 
-| Schema Type  | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
-| ------------ | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
-| **Ontology** | ontology name / IRI                  | class      | attribute     | relation               | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
-| **Database** | database schema name (e.g. `public`) | table      | column        | foreign key / relation | `uuid`, `varchar`, `integer`  | `Customer`, `Order`      | Min/max constraint on column value count per row (rarely used) |
-| **Dataset**  | dataset schema name                  | table      | column        | relation / join        | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
-| **JSON**     | schema identifier / IRI              | object     | property      | reference (\$ref-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
-| **Avro**     | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
-
----
+| Schema Type  | `{model}`                             | `{entity}` | `{attribute}` | `{relation}`            | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
+| ------------ | ------------------------------------- | ---------- | ------------- | ----------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
+| **Ontology** | ontology name / IRI                   | class      | attribute     | relation                | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
+| **Database** | database schema name (e.g., `public`) | table      | column        | foreign key / relation  | `uuid`, `varchar`, `integer`  | `Customer`, `Order`      | Min/max constraint on column value count per row (rarely used) |
+| **Dataset**  | dataset schema name                   | table      | column        | relation / join         | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
+| **JSON**     | schema identifier / IRI               | object     | property      | reference (`$ref`-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
+| **Avro**     | Avro namespace or schema name         | record     | field         | relation (record ref)   | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
