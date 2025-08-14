@@ -28,7 +28,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 * **{data\_type}** – The type for attributes (empty for relations).
 * **{target}** – The target entity for relations (empty for attributes).
 * **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality.
-* **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)` or `(default=now(),pattern=^[A-Z]{2}\d{4}$)`).
+* **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable comment after `#`.
 
 ### Example
