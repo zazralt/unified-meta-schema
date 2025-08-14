@@ -70,6 +70,10 @@ shop_db:
 * default: default value, syntax: (default: ...)
 * pattern: regex pattern, syntax: (pattern: ...)
 
+### Description
+
+* write optionally human-readable descriptions or comments after a hash #
+
 ### Alignment Rules
 
 Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
