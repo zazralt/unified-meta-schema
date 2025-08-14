@@ -1,7 +1,6 @@
 # meta-schema
 A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact format. It standardizes core modeling concepts — {model}, {entity}, {attribute}, {relation}, {data_type}, {target}, {min_card}, {max_card} — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
 
-
 # Overview
 
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
@@ -11,3 +10,12 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 | **Dataset**     | dataset schema name                  | table      | column        | relation / join        | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
 | **JSON** | schema identifier / IRI              | object     | property      | reference (\$ref-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
 | **Avro** | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
+
+
+## Yaml
+```yaml
+{model}:
+  {entity}:
+    {attribute}: {data_type} [{min_card},{max_card}]
+    {relation}:  {target} [{min_card},{max_card}]
+```
