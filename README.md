@@ -30,7 +30,7 @@ shop_db:
 * PascalCase
 * snake_case
 
-## Structure
+## Level Structure
 1. model
 2. entity
 3. attribute or relation
