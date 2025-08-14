@@ -44,7 +44,7 @@ shop_db:
 
 Within each `{entity}` block, use spaces (no tabs) to align the first character of `{data_type}` or `{target}` and the opening `[` of cardinality in vertical columns, with a single space after the colon. Alignment is applied per entity block only.
 
-### CSV
+### CSV Representation
 | model    | entity   | attribute    | relation | data\_type | target   | min\_card | max\_card |
 | -------- | -------- | ------------ | -------- | ---------- | -------- | --------- | --------- |
 | shop\_db | Customer | customer\_id |          | uuid       |          | 1         | 1         |
