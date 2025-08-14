@@ -4,12 +4,27 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 # Overview
 
 ## Yaml
+
+### Syntax
 ```yaml
 {model}:
   {entity}:
     {attribute}: {data_type} [{min_card},{max_card}]
     {relation}:  {target} [{min_card},{max_card}]
 ```
+
+### Example
+```yaml
+my_database:
+  Customer:
+    customer_id: uuid [1,1]
+    name: string [1,1]
+    orders: Order [0,*]
+  Order:
+    order_id: uuid [1,1]
+    customer: Customer [1,1]
+```
+
 
 ## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
