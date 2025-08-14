@@ -3,6 +3,15 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 # Overview
 
+## Yaml
+```yaml
+{model}:
+  {entity}:
+    {attribute}: {data_type} [{min_card},{max_card}]
+    {relation}:  {target} [{min_card},{max_card}]
+```
+
+## Elements
 | Schema Type     | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
 | --------------- | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
 | **Ontology**    | ontology name / IRI                  | class      | attribute     | relation               | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
@@ -12,10 +21,3 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 | **Avro** | Avro namespace or schema name        | record     | field         | relation (record ref)  | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
 
 
-## Yaml
-```yaml
-{model}:
-  {entity}:
-    {attribute}: {data_type} [{min_card},{max_card}]
-    {relation}:  {target} [{min_card},{max_card}]
-```
