@@ -51,16 +51,24 @@ shop_db:
 * `PascalCase`
 * `snake_case`
 
-### Cardinality semantics
+### Data Type
 
+* write always data types for attributes
+
+### Cardinality
+
+* write optionally cardinalities in square brackets and comma separated
 * `{min_card}` is an integer ≥ 0.
 * `{max_card}` is an integer ≥ 0 or `*` (unbounded).
 
-### Constraints (optional)
+### Constraints
 
-* write constraint in parenthesis
+* write optionally constraint in round brackets and comma separated, if necessary
 * pk: primar key
 * fk: forgein key
+* unique: unique value
+* default: default value, syntax: (default: ...)
+* pattern: regex pattern, syntax: (pattern: ...)
 
 ### Alignment Rules
 
