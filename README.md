@@ -55,6 +55,14 @@ shop_db:
 
 * Always specify data types for attributes.
 
+### Target Forms
+
+* `{target}` MAY be one of:
+
+  * `{entity}`
+  * `{entity}.{attribute}`
+  * `{model}.{entity}.{attribute}`
+
 ### Cardinality
 
 * Optionally specify cardinalities in square brackets, comma-separated.
@@ -71,19 +79,19 @@ shop_db:
 
 * Optionally add human-readable descriptions as YAML comments after `#`.
 
+### Prefixes
+
+* Declare prefixes at the `{model}` root using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
+* Use prefixed names anywhere—`{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
+* Expand prefixes before validation and before parsing cardinality/constraints.
+* Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
+* Quote keys that contain `/` or `#` in YAML (e.g., `"http:Thing"`), and prefer quoting when unsure.
+
 ### Alignment Rules
 
 * Use spaces only (no tabs); a two-space indent per level is recommended.
 * Within each `{entity}` block, align the first character of `{data_type}` or `{target}` vertically, and align the opening `[` of cardinality vertically.
 * Use a single space after the colon before `{data_type}` / `{target}`; apply alignment per entity block only.
-
-### Target Forms
-
-* `{target}` MAY be one of:
-
-  * `{entity}`
-  * `{entity}.{attribute}`
-  * `{model}.{entity}.{attribute}`
 
 ### JSON Representation
 
