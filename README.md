@@ -1,2 +1,2 @@
 # meta-schema
-Unified, technology-agnostic meta-schema for expressing ontologies, databases, datasets, JSONs, and Avro schemas in a compact format with cardinality. Standardizes {model}, {entity}, {attribute}, {relation} for validation, mapping, and interoperability.
+A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact format. It standardizes core modeling concepts — {model}, {entity}, {attribute}, {relation}, {data_type}, {target}, {min_card}, {max_card} — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
