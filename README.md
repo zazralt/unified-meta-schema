@@ -81,7 +81,7 @@ shop_db:
 
 ### Prefixes
 
-* Declare prefixes at the `{model}` root using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
+* Declare prefixes at the `{model}` root using `prefix` (e.g., `prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
 * Use prefixed names anywhere—`{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
 * Expand prefixes before validation and before parsing cardinality/constraints.
 * Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
