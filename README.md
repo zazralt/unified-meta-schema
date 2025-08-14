@@ -21,6 +21,16 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
     {relation}:  {target}    [{min_card},{max_card}]
 ```
 
+### Elements
+* **{model}** – The schema or namespace (e.g., a database name).
+* **{entity}** – The entity or table name.
+* **{attribute}** – A property with a data type.
+* **{relation}** – A link to another entity.
+* **{data\_type}** – The type for attributes (empty for relations).
+* **{target}** – The target entity for relations (empty for attributes).
+* **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality.
+
+
 ### Example
 
 ```yaml
@@ -54,7 +64,7 @@ Within each `{entity}` block, use spaces (no tabs) to align the first character 
 | shop\_db | Order    |              | customer |            | Customer | 1         | 1         |
 
 
-### Elements
+### Schema Types
 
 | Schema Type  | `{model}`                            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
 | ------------ | ------------------------------------ | ---------- | ------------- | ---------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
