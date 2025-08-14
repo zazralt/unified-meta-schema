@@ -15,8 +15,8 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 ```yaml
 {model}:
   {entity}:
-    {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) # description
-    {relation}:  {target}    [{min_card},{max_card}] ({constraint}) # description
+    {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) # {description}
+    {relation}:  {target}    [{min_card},{max_card}] ({constraint}) # {description}
 ````
 
 ### Elements
