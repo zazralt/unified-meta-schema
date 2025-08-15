@@ -29,7 +29,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 * **{relation}** – A link to another entity.
 * **{data\_type}** – The type for attributes (mandatory for attributes, empty for relations).
 * **{target}** – The target entity for relations (mandatory for relations, empty for attributes).
-* **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality (optional).
+* **{min\_card}** / **{max\_card}** – Optional, minimum and maximum cardinality in square brackets (e.g. `[1,1]`).
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
 
