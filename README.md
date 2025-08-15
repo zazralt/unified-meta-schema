@@ -44,11 +44,11 @@ shop_db:
   Customer:
     customer_id: uuid     [1,1] (pk)                 | Primary key of Customer
     name:        string   [1,1]                      | Customer full name
-    orders:      Order    [0,*]                      | All orders placed by this customer
+    orders:      > Order  [0,*]                      | All orders placed by this customer
   Order:
     order_id:    uuid     [1,1] (pk)                 | Primary key of Order
-    customer_id: uuid     [1,1]                      | Foreign key column to Customer
-    customer:    Customer.customer_id [1,1] (fk)     | Relation via dot-notation
+    customer_id: uuid     [1,1] (fk)                 | Foreign key column to Customer
+    customer:    customer_id > Customer.customer_id [1,1]
 ```
 
 ### Naming Conventions
