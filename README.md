@@ -15,8 +15,8 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 ```yaml
 {model}:
   {entity}:
-    {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) # {description}
-    {relation}:  {target}    [{min_card},{max_card}] ({constraint}) # {description}
+    {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) | {description}
+    {relation}:  {target}    [{min_card},{max_card}] ({constraint}) | {description}
 ````
 
 ### Elements
@@ -29,7 +29,7 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 * **{target}** – The target entity for relations (empty for attributes).
 * **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality.
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
-* **{description}** – Optional human-readable comment after `#`.
+* **{description}** – Optional human-readable description after `|`.
 
 ### Example
 
