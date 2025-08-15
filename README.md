@@ -27,11 +27,13 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 * **{entity}** – The entity or table name.
 * **{attribute}** – A property with a data type.
 * **{relation}** – A link to another entity.
-* **{data\_type}** – The type for attributes (empty for relations).
-* **{target}** – The target entity for relations (empty for attributes).
-* **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality.
+* **{data\_type}** – The type for attributes (mandatory for attributes, empty for relations).
+* **{target}** – The target entity for relations (mandatory for relations, empty for attributes).
+* **{min\_card}** / **{max\_card}** – Minimum and maximum cardinality (optional).
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
+
+Note that an entry MUST have exactly one of {data_type} or {target}, never both.
 
 ### Example
 
@@ -64,25 +66,20 @@ shop_db:
 * Always specify data types for attributes.
 
 ### Target Dot-Notation
-
-* `{target}` may be one of:
-
-  * `{entity}`
-  * `{entity}.{attribute}`
-  * `{model}.{entity}.{attribute}`
+`{target}` may be one of:
+* `{entity}`
+* `{entity}.{attribute}`
+* `{model}.{entity}.{attribute}`
 
 ### Cardinality
 
-* Optionally specify cardinalities as `[min,max]` (whitespace allowed).
-* `{min_card}` is an integer ≥ 0; `{max_card}` is an integer ≥ 0 **or** `*` (unbounded).
-* You may omit `{max_card}` to mean unbounded (e.g., `[1,]` ≡ `[1,*]`).
-* When `{max_card}` is an integer, require `{min_card} ≤ {max_card}`.
-* Examples: `[1,1]`, `[0,*]`, `[1,]`.
-
+* Optionally specify cardinalities as `[{min_card},{max_card}]` (whitespaces allowed).
+* `{min_card}` is the minimum number of values allowed; `{max_card}` is the maximum (or * for unbounded).
+* If the entire cardinality is omitted, default is `[0,*]` (optional, unbounded).
 
 ### Constraints
 
-* Optionally specify constraints in parentheses, comma-separated `(,)`.
+* Optionally specify constraints in parentheses, comma-separated `(,)` (whitespaces allowed and ignored).
 * Common labels: `pk` (primary key), `fk` (foreign key), `unique`.
 * Key–value examples: `(default=now())`, `(pattern=^[A-Z]{2}\d{4}$)`.
 
@@ -113,7 +110,6 @@ my_model:
 
 * Use spaces only (no tabs); 2-space indent per level.
 * Add whitespace after `:` so the first character of `{data_type}` / `{target}` starts at a single global column across the file.
-* Keep exactly one space after `:` before padding; do not align the `[`—only align the type/target start.
 
 ### JSON Representation
 
@@ -144,6 +140,8 @@ my_model:
 | shop\_db | Order    | order\_id    |          | uuid       |                       | 1         | 1         | pk         | Primary key of Order               |
 | shop\_db | Order    | customer\_id |          | uuid       |                       | 1         | 1         |            | Foreign key column to Customer     |
 | shop\_db | Order    |              | customer |            | Customer.customer\_id | 1         | 1         | fk         | Relation via dot-notation          |
+
+Note: In each row, exactly one of attribute & data_type or relation & target is populated.
 
 
 ### Schema Types
