@@ -53,6 +53,9 @@ shop_db:
 * `PascalCase`
 * `snake_case`
 
+### Metadata
+* Optionally specify metadata for `{model}` or `{entity}` with a property starting with `@`, e.g. `"@id"`
+
 ### Data Types
 
 * Always specify data types for attributes.
