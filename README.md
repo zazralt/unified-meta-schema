@@ -55,7 +55,7 @@ shop_db:
 
 ### Metadata
 * Optionally declare metadata at the `{model}` or `{entity}` level using **quoted** `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
-* Metadata values can be single scalars (e.g., `"@id": "123"`) or nested mappings (e.g., `"@prefix": {...}`); they are listed before regular members and are ignored when calculating column alignment.
+* Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
 
 ### Data Types
 
