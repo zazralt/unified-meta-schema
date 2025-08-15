@@ -187,3 +187,9 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 | **OpenAPI** | components/schemas      | schema (object) | property with primitive type | `$ref` property or array of `$ref`     | `string`, `integer`, `number`, `boolean` | `#/components/schemas/Customer` |
 
 ---
+
+| Schema Type | `{model}` | `{entity}` |
+| ----------- | --------- | ---------- |
+| Ontology    | ontology name / IRI | class |
+| Database    | database schema name | table |
+
