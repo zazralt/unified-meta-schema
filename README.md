@@ -66,12 +66,23 @@ shop_db:
 * Always specify data types for attributes.
 
 ### Target Syntax Dot-Notation
-`{target}` may be one of:
-* Entity Relation: `> {entity}`
-* Single Relation: `{attribute} > {entity}.{attribute}`
-* Composite Relation: `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
-* External Relation: `{attribute} > {model}.{entity}.{attribute}`
-* Composite External Relation: `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
+* Each relation must have one direction symbol `>` for forward and `<` for reverse in the `{target}`.
+* Entity Relation:
+  * `> {entity}`
+  * `< {entity}`
+* Single Relation:
+  * `{attr} > {entity}.{attr}`
+  * `{attr} < {entity}.{attr}`
+* Composite Relation:
+  * `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
+  * `({attr1},{attr2}) < {entity}.({attr1},{attr2}`)
+* External Relation:
+  * `{attr} > {model}.{entity}.{attr}`
+  * `{attr} < {model}.{entity}.{attr}`
+* Composite External Relation:
+  * `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
+  * `({attr1},{attr2}) < {model}.{entity}.({attr1},{attr2}`)
+* Reverse Relation: `<`, i.e. from this entity, navigate from {entity} to current
 
 ### Cardinality
 
