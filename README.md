@@ -143,9 +143,6 @@ my_model:
 
 Note: In each row, exactly one of attribute & data_type or relation & target is populated.
 
-
-Here’s your **Schema Types** table reordered into clear functional groups — *Semantic Web & Knowledge Graphs*, *Databases & Datasets*, *Data Serialization & Storage Formats*, and *APIs & Service Contracts*.
-
 ---
 
 ### Schema Types
