@@ -54,7 +54,8 @@ shop_db:
 * `snake_case`
 
 ### Metadata
-* Optionally specify metadata for `{model}` or `{entity}` with a property starting with `@` and with quotes, e.g. `"@id"`
+* Optionally declare metadata at the `{model}` or `{entity}` level using **quoted** `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
+* Metadata values can be single scalars (e.g., `"@id": "123"`) or nested mappings (e.g., `"@prefix": {...}`); they are listed before regular members and are ignored when calculating column alignment.
 
 ### Data Types
 
