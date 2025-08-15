@@ -61,7 +61,7 @@ shop_db:
 
 * Always specify data types for attributes.
 
-### Target Forms
+### Target Dot-Notation
 
 * `{target}` MAY be one of:
 
@@ -83,11 +83,11 @@ shop_db:
 
 ### Description
 
-* Optionally add human-readable descriptions as YAML comments after `#`.
+* Optionally add human-readable descriptions after `|`.
 
 ### Prefixes
 
-* Declare prefixes at the `{model}` root using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
+* Declare prefixes at the `{model}` level using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
 * Use prefixed names anywhere—`{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
 * Expand prefixes before validation and before parsing cardinality/constraints.
 * Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
@@ -102,10 +102,6 @@ my_model:
     customer_id: xsd:string [1,1] (pk)                 | Customer identifier
     name:        xsd:string [1,1]                      | Full name
     orders:      ex:Order   [0,*]                      | All orders of this customer
-
-  "ex:Order":
-    order_id:    xsd:string [1,1] (pk)                 | Order identifier
-    customer:    ex:Customer.ex:customer_id [1,1] (fk) | Relation via dot-notation
 ```
 
 ### Alignment Rules
