@@ -8,15 +8,15 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 ### YAML Level Structure
 1. `{model}`
-2. `{entity}` or `@metadata`
-3. `{attribute}` or `{relation}` or `@metadata`
+2. `{entity}` or `@{metadata}`
+3. `{attribute}` or `{relation}` or `@{metadata}`
 
 ### Syntax
 ```yaml
 {model}:
-  '@metadata': '...'
+  '@{metadata}': '...'
   {entity}:
-    '@metadata': '...'
+    '@{metadata}': '...'
     {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) | {description}
     {relation}:  <> {target}  [{min_card},{max_card}] ({constraint}) | {description}
 ````
