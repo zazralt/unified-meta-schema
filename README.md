@@ -188,8 +188,3 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 
 ---
 
-| Schema Type | `{model}` | `{entity}` |
-| ----------- | --------- | ---------- |
-| Ontology    | ontology name / IRI | class |
-| Database    | database schema name | table |
-
