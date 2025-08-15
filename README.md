@@ -65,11 +65,12 @@ shop_db:
 
 * Always specify data types for attributes.
 
-### Target Dot-Notation
+### Target Syntax Dot-Notation
 `{target}` may be one of:
-* `{entity}`
-* `{entity}.{attribute}`
-* `{model}.{entity}.{attribute}`
+* Abstract: `> {entity}`
+* Reference: `{attribute} > {entity}.{attribute}`
+* Composite Keys: `({attribute1},{attribute2}) > {entity}.({attribute1},{attribute2}`)
+* External Reference: `{attribute} > {model}.{entity}.{attribute}`
 
 ### Cardinality
 
