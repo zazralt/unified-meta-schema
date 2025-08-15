@@ -67,22 +67,26 @@ shop_db:
 
 ### Target Syntax Dot-Notation
 * Each relation must have one direction symbol `>` for forward and `<` for reverse in the `{target}`.
-* Entity Relation:
-  * `> {entity}`
-  * `< {entity}`
-* Single Relation:
-  * `{attr} > {entity}.{attr}`
-  * `{attr} < {entity}.{attr}`
-* Composite Relation:
-  * `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
-  * `({attr1},{attr2}) < {entity}.({attr1},{attr2}`)
-* External Relation:
-  * `{attr} > {model}.{entity}.{attr}`
-  * `{attr} < {model}.{entity}.{attr}`
-* Composite External Relation:
-  * `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
-  * `({attr1},{attr2}) < {model}.{entity}.({attr1},{attr2}`)
-* Reverse Relation: `<`, i.e. from this entity, navigate from {entity} to current
+
+**Entity Relation:**
+* `> {entity}`
+* `< {entity}`
+
+**Single Relation:**
+* `{attr} > {entity}.{attr}`
+* `{attr} < {entity}.{attr}`
+
+**Composite Relation:**
+* `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) < {entity}.({attr1},{attr2}`)
+
+** External Relation:**
+* `{attr} > {model}.{entity}.{attr}`
+* `{attr} < {model}.{entity}.{attr}`
+
+** Composite External Relation:**
+* `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) < {model}.{entity}.({attr1},{attr2}`)
 
 ### Cardinality
 
