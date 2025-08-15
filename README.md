@@ -94,15 +94,14 @@ my_model:
   "@prefix":
     ex:  "https://example.org/onto#"
     xsd: "http://www.w3.org/2001/XMLSchema#"
-
   "ex:Customer":
-    customer_id: xsd:string [1,1] (pk)                 # Customer identifier
-    name:        xsd:string [1,1]                      # Full name
-    orders:      ex:Order   [0,*]                      # All orders of this customer
+    customer_id: xsd:string [1,1] (pk)                 | Customer identifier
+    name:        xsd:string [1,1]                      | Full name
+    orders:      ex:Order   [0,*]                      | All orders of this customer
 
   "ex:Order":
-    order_id:    xsd:string [1,1] (pk)                 # Order identifier
-    customer:    ex:Customer.ex:customer_id [1,1] (fk) # Relation via dot-notation
+    order_id:    xsd:string [1,1] (pk)                 | Order identifier
+    customer:    ex:Customer.ex:customer_id [1,1] (fk) | Relation via dot-notation
 ```
 
 ### Alignment Rules
