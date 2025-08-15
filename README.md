@@ -54,7 +54,7 @@ shop_db:
 * `snake_case`
 
 ### Metadata
-* Optionally specify metadata for `{model}` or `{entity}` with a property starting with `@`, e.g. `"@id"`
+* Optionally specify metadata for `{model}` or `{entity}` with a property starting with `@` and with quotes, e.g. `"@id"`
 
 ### Data Types
 
