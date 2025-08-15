@@ -73,13 +73,16 @@ shop_db:
 
 ### Cardinality
 
-* Optionally specify cardinalities in square brackets, comma-separated.
-* `{min_card}` is an integer ≥ 0.
-* `{max_card}` is an integer ≥ 0 or `*` (unbounded).
+* Optionally specify cardinalities as `[min,max]` (whitespace allowed).
+* `{min_card}` is an integer ≥ 0; `{max_card}` is an integer ≥ 0 **or** `*` (unbounded).
+* You may omit `{max_card}` to mean unbounded (e.g., `[1,]` ≡ `[1,*]`).
+* When `{max_card}` is an integer, require `{min_card} ≤ {max_card}`.
+* Examples: `[1,1]`, `[0,*]`, `[1,]`.
+
 
 ### Constraints
 
-* Optionally specify constraints in parentheses, comma-separated.
+* Optionally specify constraints in parentheses, comma-separated `(,)`.
 * Common labels: `pk` (primary key), `fk` (foreign key), `unique`.
 * Key–value examples: `(default=now())`, `(pattern=^[A-Z]{2}\d{4}$)`.
 
