@@ -56,7 +56,7 @@ shop_db:
 * `snake_case`
 
 ### Metadata
-* Optionally declare metadata at the `{model}` or `{entity}` level using **quoted** `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
+* Optionally declare metadata at the `{model}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
 * Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
 
 ### Data Types
@@ -65,7 +65,7 @@ shop_db:
 
 ### Target Dot-Notation
 
-* `{target}` MAY be one of:
+* `{target}` may be one of:
 
   * `{entity}`
   * `{entity}.{attribute}`
@@ -108,9 +108,9 @@ my_model:
 
 ### Alignment Rules
 
-* Use spaces only (no tabs); a two-space indent per level is recommended.
-* Within each `{entity}` block, align the first character of `{data_type}` or `{target}` vertically, and align the opening `[` of cardinality vertically.
-* Use a single space after the colon before `{data_type}` / `{target}`; apply alignment per entity block only.
+* Use spaces only (no tabs); 2-space indent per level.
+* Add whitespace after `:` so the first character of `{data_type}` / `{target}` starts at a single global column across the file.
+* Keep exactly one space after `:` before padding; do not align the `[`—only align the type/target start.
 
 ### JSON Representation
 
@@ -118,14 +118,14 @@ my_model:
 {
   "shop_db": {
     "Customer": {
-      "customer_id": "uuid [1,1] (pk) # Primary key of Customer",
-      "name": "string [1,1] # Customer full name",
-      "orders": "Order [0,*] # All orders placed by this customer"
+      "customer_id": "uuid [1,1] (pk) | Primary key of Customer",
+      "name": "string [1,1] | Customer full name",
+      "orders": "Order [0,*] | All orders placed by this customer"
     },
     "Order": {
-      "order_id": "uuid [1,1] (pk) # Primary key of Order",
-      "customer_id": "uuid [1,1] # Foreign key column to Customer",
-      "customer": "Customer.customer_id [1,1] (fk) # Relation via dot-notation"
+      "order_id": "uuid [1,1] (pk) | Primary key of Order",
+      "customer_id": "uuid [1,1] | Foreign key column to Customer",
+      "customer": "Customer.customer_id [1,1] (fk) | Relation via dot-notation"
     }
   }
 }
