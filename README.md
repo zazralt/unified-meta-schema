@@ -144,20 +144,49 @@ my_model:
 Note: In each row, exactly one of attribute & data_type or relation & target is populated.
 
 
+Here’s your **Schema Types** table reordered into clear functional groups — *Semantic Web & Knowledge Graphs*, *Databases & Datasets*, *Data Serialization & Storage Formats*, and *APIs & Service Contracts*.
+
+---
+
 ### Schema Types
 
-| Schema Type  | `{model}`                             | `{entity}` | `{attribute}` | `{relation}`            | `{data_type}` examples        | `{target}` examples      | `{min_card},{max_card}` meaning                                |
-| ------------ | ------------------------------------- | ---------- | ------------- | ----------------------- | ----------------------------- | ------------------------ | -------------------------------------------------------------- |
-| **Ontology** | ontology name / IRI                   | class      | attribute     | relation                | `xsd:string`, `xsd:dateTime`  | `ex:Person`, `ex:Order`  | Minimum/maximum property occurrences in class definition       |
-| **Database** | database schema name                  | table      | column        | foreign key / relation  | `uuid`, `varchar`, `integer`  | `Customer`, `Order`      | Min/max constraint on column value count per row (rarely used) |
-| **Dataset**  | dataset schema name                   | table      | column        | relation / join         | `string`, `date`, `decimal`   | `Customer`, `Product`    | Min/max rows linked in relation                                |
-| **JSON**     | schema identifier / IRI               | object     | property      | reference (`$ref`-like) | `string`, `number`, `boolean` | `#/definitions/Customer` | Min/max items or property occurrences                          |
-| **Avro**     | Avro namespace or schema name         | record     | field         | relation (record ref)   | `string`, `long`, `bytes`     | `Customer`, `Order`      | Min/max occurrences in array/field constraints                 |
-| **XSD (XML Schema)** | schema namespace   | `complexType` / global `element` | `xs:attribute` or simple-content `element`  | `element` with `@ref` / `keyref`        | `xsd:string`, `xsd:date`, `xsd:int`        | `CustomerType`, `OrderType`       | `minOccurs`,`maxOccurs` on elements; attributes are 0/1 unless `use="required"`                        |
-| **Protobuf**         | `package`          | `message`                        | scalar `field`                              | `field` of `message` type               | `int32`, `string`, `bytes`, `bool`         | `Customer`, `Order`               | scalars are 0..1 (proto3); `repeated` = 0..\*; `oneof` = at most one among options                     |
-| **GraphQL**          | schema / namespace | `type` (object)                  | field with scalar type                      | field with object/union/interface type  | `Int`, `String`, `Boolean`, `ID`           | `Customer`, `Order`               | non-null `!` enforces min=1; list `[T]` implies max=\*; nested `!` controls item and field nullability |
-| **OpenAPI**          | components/schemas | schema (type `object`)           | property with primitive type                | `$ref` property or array of `$ref`      | `string`, `integer`, `number`, `boolean`   | `#/components/schemas/Customer`   | presence via `required`; arrays use `minItems`/`maxItems`; properties are single-valued unless arrays  |
-| **RDFS**             | ontology IRI       | `rdfs:Class`                     | `rdf:Property` with `rdfs:range` (datatype) | `rdf:Property` with class range         | `xsd:string`, `xsd:dateTime`               | `ex:Person`, `ex:Order`           | no native cardinality (use OWL/SHACL for min/max)                                                      |
-| **SHACL**            | shapes graph IRI   | `sh:NodeShape`                   | `sh:property` with `sh:datatype`            | `sh:property` with `sh:node`/`sh:class` | `xsd:string`, `xsd:integer`                | target `ex:Customer`              | `sh:minCount`,`sh:maxCount` = min/max occurrences                                                      |
-| **Parquet**          | file schema        | group (logical struct)           | primitive field                             | group-typed field                       | `INT32`, `DOUBLE`, `BYTE_ARRAY`, `BOOLEAN` | nested `group` (e.g., `Customer`) | repetition: `REQUIRED`=1, `OPTIONAL`=0..1, `REPEATED`=0..\*                                            |
-| **Thrift IDL**       | `namespace`        | `struct`                         | field with base type                        | field with `struct`/`union` type        | `i32`, `string`, `bool`, `binary`          | `Customer`, `Order`               | `optional`=0..1, `required`=1..1; lists/sets/maps imply collections (use size constraints externally)  |
+#### **Semantic Web & Knowledge Graphs**
+
+| Schema Type  | `{model}`           | `{entity}`     | `{attribute}`                               | `{relation}`                            | `{data_type}` examples       | `{target}` examples     |
+| ------------ | ------------------- | -------------- | ------------------------------------------- | --------------------------------------- | ---------------------------- | ----------------------- |
+| **Ontology** | ontology name / IRI | class          | attribute                                   | relation                                | `xsd:string`, `xsd:dateTime` | `ex:Person`, `ex:Order` |
+| **RDFS**     | ontology IRI        | `rdfs:Class`   | `rdf:Property` with `rdfs:range` (datatype) | `rdf:Property` with class range         | `xsd:string`, `xsd:dateTime` | `ex:Person`, `ex:Order` |
+| **SHACL**    | shapes graph IRI    | `sh:NodeShape` | `sh:property` with `sh:datatype`            | `sh:property` with `sh:node`/`sh:class` | `xsd:string`, `xsd:integer`  | target `ex:Customer`    |
+
+---
+
+#### **Databases & Datasets**
+
+| Schema Type  | `{model}`            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples       | `{target}` examples   |
+| ------------ | -------------------- | ---------- | ------------- | ---------------------- | ---------------------------- | --------------------- |
+| **Database** | database schema name | table      | column        | foreign key / relation | `uuid`, `varchar`, `integer` | `Customer`, `Order`   |
+| **Dataset**  | dataset schema name  | table      | column        | relation / join        | `string`, `date`, `decimal`  | `Customer`, `Product` |
+
+---
+
+#### **Data Serialization & Storage Formats**
+
+| Schema Type          | `{model}`                | `{entity}`                       | `{attribute}`                              | `{relation}`                     | `{data_type}` examples                     | `{target}` examples               |
+| -------------------- | ------------------------ | -------------------------------- | ------------------------------------------ | -------------------------------- | ------------------------------------------ | --------------------------------- |
+| **Avro**             | Avro namespace or schema | record                           | field                                      | relation (record ref)            | `string`, `long`, `bytes`                  | `Customer`, `Order`               |
+| **XSD (XML Schema)** | schema namespace         | `complexType` / global `element` | `xs:attribute` or simple-content `element` | `element` with `@ref` / `keyref` | `xsd:string`, `xsd:date`, `xsd:int`        | `CustomerType`, `OrderType`       |
+| **Protobuf**         | `package`                | `message`                        | scalar `field`                             | `field` of `message` type        | `int32`, `string`, `bytes`, `bool`         | `Customer`, `Order`               |
+| **Parquet**          | file schema              | group (logical struct)           | primitive field                            | group-typed field                | `INT32`, `DOUBLE`, `BYTE_ARRAY`, `BOOLEAN` | nested `group` (e.g., `Customer`) |
+| **Thrift IDL**       | `namespace`              | `struct`                         | field with base type                       | field with `struct`/`union` type | `i32`, `string`, `bool`, `binary`          | `Customer`, `Order`               |
+
+---
+
+#### **APIs & Service Contracts**
+
+| Schema Type | `{model}`               | `{entity}`      | `{attribute}`                | `{relation}`                           | `{data_type}` examples                   | `{target}` examples             |
+| ----------- | ----------------------- | --------------- | ---------------------------- | -------------------------------------- | ---------------------------------------- | ------------------------------- |
+| **JSON**    | schema identifier / IRI | object          | property                     | reference (`$ref`-like)                | `string`, `number`, `boolean`            | `#/definitions/Customer`        |
+| **GraphQL** | schema / namespace      | `type` (object) | field with scalar type       | field with object/union/interface type | `Int`, `String`, `Boolean`, `ID`         | `Customer`, `Order`             |
+| **OpenAPI** | components/schemas      | schema (object) | property with primitive type | `$ref` property or array of `$ref`     | `string`, `integer`, `number`, `boolean` | `#/components/schemas/Customer` |
+
+---
