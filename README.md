@@ -60,7 +60,7 @@ shop_db:
 ### Metadata
 * Optionally declare metadata at the `{model}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
 * Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
-* Examples: `@id`, `@name`, `@description`, `@version`, `@prefixes`
+* Examples: `@id`, `@name`, `@description`, `@version`, `@prefixes`, `@creator`, `@creation_date`
 
 ### Data Types
 
