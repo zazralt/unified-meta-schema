@@ -69,8 +69,9 @@ shop_db:
 `{target}` may be one of:
 * Entity Relation: `> {entity}`
 * Single Relation: `{attribute} > {entity}.{attribute}`
-* Composite Relation: `({attribute1},{attribute2}) > {entity}.({attribute1},{attribute2}`)
+* Composite Relation: `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
 * External Relation: `{attribute} > {model}.{entity}.{attribute}`
+* Composite External Relation: `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
 
 ### Cardinality
 
