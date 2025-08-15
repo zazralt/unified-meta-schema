@@ -35,14 +35,16 @@ A unified, technology-agnostic meta-schema for representing ontologies, database
 
 ```yaml
 shop_db:
+  "@id":         "schema_123"
+  "@title":      "My Shop"
   Customer:
-    customer_id: uuid     [1,1] (pk)                 # Primary key of Customer
-    name:        string   [1,1]                      # Customer full name
-    orders:      Order    [0,*]                      # All orders placed by this customer
+    customer_id: uuid     [1,1] (pk)                 | Primary key of Customer
+    name:        string   [1,1]                      | Customer full name
+    orders:      Order    [0,*]                      | All orders placed by this customer
   Order:
-    order_id:    uuid     [1,1] (pk)                 # Primary key of Order
-    customer_id: uuid     [1,1]                      # Foreign key column to Customer
-    customer:    Customer.customer_id [1,1] (fk)     # Relation via dot-notation
+    order_id:    uuid     [1,1] (pk)                 | Primary key of Order
+    customer_id: uuid     [1,1]                      | Foreign key column to Customer
+    customer:    Customer.customer_id [1,1] (fk)     | Relation via dot-notation
 ```
 
 ### Naming Conventions
