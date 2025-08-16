@@ -33,14 +33,14 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 ## Specification
 
 ### Structure
+```
 {model}
   ├── {@metadata}
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {data_type}
        └── {relation}: > {target}
-
-
+```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{model}`, `{entity}`, `{attribute}`, etc.).
 
 ### Syntax
@@ -53,6 +53,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
     {relation}:  > {target}  [{min_card},{max_card}] ({constraint}) | {description}
     {relation}:  < {target}  [{min_card},{max_card}] ({constraint}) | {description}
 ````
+**Note:** The symbols `>` and `<` indicate relation direction (forward and backward respectively).
 
 ### Elements
 
