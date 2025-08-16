@@ -66,7 +66,8 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
 
-**Important:** An entry MUST have exactly one of `{data_type}` or `{target}`, never both.
+**Important:** `{attribute}` must specify a `{data_type}`. `{relation}`  must specify a `{target}`. An entry cannot have both.
+
 
 ### Example
 
