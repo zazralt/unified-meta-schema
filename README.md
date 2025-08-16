@@ -48,17 +48,19 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 ### Syntax
 ```yaml
 {schema}:
-  '{@metadata}': '...'
+  "{@metadata}": "..."
   {entity}:
-    '{@metadata}': '...'
+    "{@metadata}": "..."
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
     {relation}:  -> {target}  [{min},{max}] ({constraint}) | {description}
 ````
 **Note:**
-* Use indentation (2 spaces recommended) for proper hierarchy.
-* Use quotes in keys with special characters, e.g. "{@metadata}".
-* Add space after colons for improved readability (e.g., key: value rather than key:value).
-* The symbols `->` and `<-` indicate relation direction (forward and backward respectively).
+* Use 2 spaces per indentation level (no tabs).
+* Always add a space after colons (`key: value`, not `key:value`).
+* Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
+* Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
+* Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
+* The symbols `->` (forward) and `<-` (backward) indicate relation direction.
 
 ### Elements
 
