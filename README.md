@@ -14,7 +14,7 @@ This specification:
 
 - Defines a concise YAML structure for expressing entities, their attributes, and relations
 - Provides explicit representation of datatypes and cardinality constraints
-- Supports metadata annotations at model and entity levels
+- Supports metadata annotations at schema and entity levels
 - Enables bidirectional relation mapping with rich target expression syntax
 - Facilitates transformation between different schema languages and paradigms
 - Serves as both a documentation format and an executable specification
@@ -148,7 +148,7 @@ shop_db:
 * Quote keys that contain `/` or `#` in YAML (e.g., `"http:Thing"`), and prefer quoting when unsure.
 
 ```yaml
-my_model:
+my_schema:
   "@prefix":
     ex:  "https://example.org/onto#"
     xsd: "http://www.w3.org/2001/XMLSchema#"
@@ -184,7 +184,7 @@ my_model:
 
 ### Table Representation
 
-| model    | entity   | attribute    | relation | data\_type | target                | min | max | constraint | description                        |
+| schema    | entity   | attribute    | relation | data\_type | target                | min | max | constraint | description                        |
 | -------- | -------- | ------------ | -------- | ---------- | --------------------- | --------- | --------- | ---------- | ---------------------------------- |
 | shop\_db | Customer | customer\_id |          | uuid       |                       | 1         | 1         | pk         | Primary key of Customer            |
 | shop\_db | Customer | name         |          | string     |                       | 1         | 1         |            | Customer full name                 |
