@@ -40,7 +40,8 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
   {entity}:
     '@{metadata}': '...'
     {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) | {description}
-    {relation}:  <> {target}  [{min_card},{max_card}] ({constraint}) | {description}
+    {relation}:  > {target}  [{min_card},{max_card}] ({constraint}) | {description}
+    {relation}:  < {target}  [{min_card},{max_card}] ({constraint}) | {description}
 ````
 
 ### Elements
@@ -55,7 +56,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
 
-Note that an entry MUST have exactly one of {data_type} or {target}, never both.
+Important: An entry MUST have exactly one of `{data_type}` or `{target}`, never both.
 
 ### Example
 
