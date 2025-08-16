@@ -52,7 +52,12 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
     {relation}:  -> {target}  [{min},{max}] ({constraint}) | {description}
 ````
-**Note:** The symbols `->` and `<-` indicate relation direction (forward and backward respectively).
+**Note:**
+* YAML keys with special characters (including @) should be quoted (e.g., "@id", "@title").
+* Standard keys (without special characters) don't require quotes.
+* Maintain consistent indentation (2 spaces recommended) for proper hierarchy.
+* Add space after colons for improved readability (e.g., key: value rather than key:value).
+* The symbols `->` and `<-` indicate relation direction (forward and backward respectively).
 
 ### Elements
 
