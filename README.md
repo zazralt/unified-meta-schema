@@ -1,6 +1,6 @@
-# Meta Schema
+# Unified Meta Schema
 
-A unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact YAML format. It standardizes core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, `{max_card}` — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
+The Unified Meta Schema (UMS) is a unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact YAML format. It standardizes core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, `{max_card}` — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
 
 **Scope:** This specification defines a concise YAML structure for expressing entities, their attributes, and relations across multiple schema paradigms with explicit datatypes and cardinalities.
 
