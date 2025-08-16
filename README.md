@@ -56,37 +56,6 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ### Elements
 
-* **{schema}** – The schema or namespace (e.g., a database name).
-* **{entity}** – The entity or table name.
-* **{attribute}** – A property with a data type.
-* **{relation}** – A link to another entity.
-* **{data\_type}** – The type for attributes (mandatory for attributes, empty for relations).
-* **{target}** – The target entity for relations (mandatory for relations, empty for attributes).
-* **{min}** / **{max}** – Optional, minimum and maximum cardinality in square brackets (e.g. `[1,1]`).
-* **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
-* **{description}** – Optional human-readable description after `|`.
-
-# Elements with Updated Table and Example
-
-## Elements
-
-| Element | Description | Required | Example |
-|---------|-------------|:--------:|---------|
-| **{schema}** | The schema or namespace | Yes | `bookstore` |
-| **{entity}** | The entity, class, or table name | Yes | `Book`, `Author` |
-| **{attribute}** | A property with a data type | * | `title: string`, `price: decimal` |
-| **{relation}** | A link to another entity | * | `author: > Author`, `books: < Book.author` |
-| **{data_type}** | The type for attributes | For attributes | `string`, `uuid`, `decimal` |
-| **{target}** | The target entity for relations | For relations | `Author`, `Book.author` |
-| **{min}/{max}** | Minimum and maximum cardinality | No | `[1,1]`, `[1,*]`, `[0,*]` |
-| **{constraint}** | Labels or key-value pairs in parentheses | No | `(pk)` |
-| **{description}** | Human-readable description after pipe | No | `\| Book title` |
-
-
-# Elements with Updated Table and Example
-
-## Elements
-
 | Element | Description | Required | Example |
 |---------|-------------|:--------:|---------|
 | **{schema}** | The schema or namespace | Yes | `bookstore` |
