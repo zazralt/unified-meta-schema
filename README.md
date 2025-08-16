@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="ums_logo_200.png" alt="Project Logo" width="200"/>
+</p>
+
 # Unified Meta Schema (UMS)
 
 The Unified Meta Schema (UMS) is a technology-agnostic specification that bridges diverse data modeling paradigms through a single, compact representation format. UMS unifies concepts from ontologies, database schemas, dataset schemas, JSON Schema, GraphQL, OpenAPI, and other modeling frameworks into a coherent YAML-based syntax.
