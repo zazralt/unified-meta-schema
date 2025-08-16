@@ -72,17 +72,19 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 ### Example
 
 ```yaml
-shop_db:
-  "@id":         "schema_123"
-  "@title":      "My Shop"
-  Customer:
-    customer_id: uuid     [1,1] (pk)                 | Primary key of Customer
-    name:        string   [1,1]                      | Customer full name
-    orders:      > Order  [0,*]                      | All orders placed by this customer
-  Order:
-    order_id:    uuid     [1,1] (pk)                 | Primary key of Order
-    customer_id: uuid     [1,1] (fk)                 | Foreign key column to Customer
-    customer:    customer_id > Customer.customer_id [1,1]
+bookstore:
+  "@title": "Book Shop"
+  
+  Book:
+    id:        uuid    [1,1] (pk)       | Unique identifier
+    title:     string  [1,1]            | Book title
+    price:     decimal [1,1]            | Retail price
+    author:    > Author [1,*]           | Book author(s)
+    
+  Author:
+    id:        uuid    [1,1] (pk)       | Unique identifier
+    name:      string  [1,1]            | Author's name
+    books:     < Book.author [0,*]      | Books by this author
 ```
 
 ### Naming Conventions
