@@ -63,7 +63,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 * **{relation}** – A link to another entity.
 * **{data\_type}** – The type for attributes (mandatory for attributes, empty for relations).
 * **{target}** – The target entity for relations (mandatory for relations, empty for attributes).
-* **{min\_card}** / **{max\_card}** – Optional, minimum and maximum cardinality in square brackets (e.g. `[1,1]`).
+* **{min}** / **{max}** – Optional, minimum and maximum cardinality in square brackets (e.g. `[1,1]`).
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
 
@@ -184,7 +184,7 @@ my_model:
 
 ### Table Representation
 
-| model    | entity   | attribute    | relation | data\_type | target                | min\_card | max\_card | constraint | description                        |
+| model    | entity   | attribute    | relation | data\_type | target                | min | max | constraint | description                        |
 | -------- | -------- | ------------ | -------- | ---------- | --------------------- | --------- | --------- | ---------- | ---------------------------------- |
 | shop\_db | Customer | customer\_id |          | uuid       |                       | 1         | 1         | pk         | Primary key of Customer            |
 | shop\_db | Customer | name         |          | string     |                       | 1         | 1         |            | Customer full name                 |
