@@ -6,7 +6,7 @@
 
 The Unified Meta Schema (UMS) is a technology-agnostic specification that bridges diverse data modeling paradigms through a single, compact representation format. UMS unifies concepts from ontologies, database schemas, dataset schemas, JSON Schema, GraphQL, OpenAPI, and other modeling frameworks into a coherent YAML-based syntax.
 
-By standardizing core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min}`, and `{max}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
+By standardizing core modeling concepts — `{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min}`, and `{max}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
 
 ## Scope
 
@@ -34,18 +34,18 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ### Structure
 ```
-{model}
+{schema}
   ├── {@metadata}
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {data_type}
        └── {relation}: > {target}
 ```
-**Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{model}`, `{entity}`, `{attribute}`, etc.).
+**Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{schema}`, `{entity}`, `{attribute}`, etc.).
 
 ### Syntax
 ```yaml
-{model}:
+{schema}:
   '{@metadata}': '...'
   {entity}:
     '{@metadata}': '...'
@@ -57,7 +57,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ### Elements
 
-* **{model}** – The schema or namespace (e.g., a database name).
+* **{schema}** – The schema or namespace (e.g., a database name).
 * **{entity}** – The entity or table name.
 * **{attribute}** – A property with a data type.
 * **{relation}** – A link to another entity.
@@ -92,7 +92,7 @@ shop_db:
 * `snake_case`
 
 ### Metadata
-* Optionally declare metadata at the `{model}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
+* Optionally declare metadata at the `{schema}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
 * Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
 * Examples: `@id`, `@name`, `@description`, `@version`, `@prefixes`, `@creator`, `@creation_date`
 
@@ -116,12 +116,12 @@ shop_db:
 * `({attr1},{attr2}) < {entity}.({attr1},{attr2}`)
 
 **External Relation:**
-* `{attr} > {model}.{entity}.{attr}`
-* `{attr} < {model}.{entity}.{attr}`
+* `{attr} > {schema}.{entity}.{attr}`
+* `{attr} < {schema}.{entity}.{attr}`
 
 **Composite External Relation:**
-* `({attr1},{attr2}) > {model}.{entity}.({attr1},{attr2}`)
-* `({attr1},{attr2}) < {model}.{entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) > {schema}.{entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) < {schema}.{entity}.({attr1},{attr2}`)
 
 ### Cardinality
 
@@ -141,8 +141,8 @@ shop_db:
 
 ### Prefixes
 
-* Declare prefixes at the `{model}` level using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
-* Use prefixed names anywhere—`{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
+* Declare prefixes at the `{schema}` level using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
+* Use prefixed names anywhere—`{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
 * Expand prefixes before validation and before parsing cardinality/constraints.
 * Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
 * Quote keys that contain `/` or `#` in YAML (e.g., `"http:Thing"`), and prefer quoting when unsure.
@@ -201,7 +201,7 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 
 #### **Semantic Web & Knowledge Graphs**
 
-| Schema Type  | `{model}`           | `{entity}`     | `{attribute}`                               | `{relation}`                            | `{data_type}` examples       | `{target}` examples     |
+| Schema Type  | `{schema}`           | `{entity}`     | `{attribute}`                               | `{relation}`                            | `{data_type}` examples       | `{target}` examples     |
 | ------------ | ------------------- | -------------- | ------------------------------------------- | --------------------------------------- | ---------------------------- | ----------------------- |
 | **Ontology** | ontology name / IRI | `owl:Class`    | `owl:DatatypeProperty`                      | `owl:ObjectProperty`                    | `xsd:string`, `xsd:dateTime` | `ex:Person`, `ex:Order` |
 | **RDFS**     | ontology IRI        | `rdfs:Class`   | `rdf:Property` with `rdfs:range` (datatype) | `rdf:Property` with class range         | `xsd:string`, `xsd:dateTime` | `ex:Person`, `ex:Order` |
@@ -211,7 +211,7 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 
 #### **Databases & Datasets**
 
-| Schema Type  | `{model}`            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples       | `{target}` examples   |
+| Schema Type  | `{schema}`            | `{entity}` | `{attribute}` | `{relation}`           | `{data_type}` examples       | `{target}` examples   |
 | ------------ | -------------------- | ---------- | ------------- | ---------------------- | ---------------------------- | --------------------- |
 | **Database** | database schema name | table      | column        | foreign key / relation | `uuid`, `varchar`, `integer` | `Customer`, `Order`   |
 | **Dataset**  | dataset schema name  | table      | column        | relation / join        | `string`, `date`, `decimal`  | `Customer`, `Product` |
@@ -220,7 +220,7 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 
 #### **Data Serialization & Storage Formats**
 
-| Schema Type          | `{model}`                | `{entity}`                       | `{attribute}`                              | `{relation}`                     | `{data_type}` examples                     | `{target}` examples               |
+| Schema Type          | `{schema}`                | `{entity}`                       | `{attribute}`                              | `{relation}`                     | `{data_type}` examples                     | `{target}` examples               |
 | -------------------- | ------------------------ | -------------------------------- | ------------------------------------------ | -------------------------------- | ------------------------------------------ | --------------------------------- |
 | **Avro**             | Avro namespace or schema | record                           | field                                      | relation (record ref)            | `string`, `long`, `bytes`                  | `Customer`, `Order`               |
 | **XSD (XML Schema)** | schema namespace         | `complexType` / global `element` | `xs:attribute` or simple-content `element` | `element` with `@ref` / `keyref` | `xsd:string`, `xsd:date`, `xsd:int`        | `CustomerType`, `OrderType`       |
@@ -232,7 +232,7 @@ Note: In each row, exactly one of attribute & data_type or relation & target is 
 
 #### **APIs & Service Contracts**
 
-| Schema Type | `{model}`               | `{entity}`      | `{attribute}`                | `{relation}`                           | `{data_type}` examples                   | `{target}` examples             |
+| Schema Type | `{schema}`               | `{entity}`      | `{attribute}`                | `{relation}`                           | `{data_type}` examples                   | `{target}` examples             |
 | ----------- | ----------------------- | --------------- | ---------------------------- | -------------------------------------- | ---------------------------------------- | ------------------------------- |
 | **JSON**    | schema identifier / IRI | object          | property                     | reference (`$ref`-like)                | `string`, `number`, `boolean`            | `#/definitions/Customer`        |
 | **GraphQL** | schema / namespace      | `type` (object) | field with scalar type       | field with object/union/interface type | `Int`, `String`, `Boolean`, `ID`         | `Customer`, `Order`             |
