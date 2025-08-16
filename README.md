@@ -28,7 +28,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ## Specification
 
-### YAML Level Structure
+### Structure
 1. `{model}`
 2. `{entity}` or `@{metadata}`
 3. `{attribute}` or `{relation}` or `@{metadata}`
