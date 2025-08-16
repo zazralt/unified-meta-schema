@@ -39,7 +39,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {data_type}
-       └── {relation}: > {target}
+       └── {relation}: -> {target}
 ```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{schema}`, `{entity}`, `{attribute}`, etc.).
 
@@ -50,9 +50,9 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
   {entity}:
     '{@metadata}': '...'
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
-    {relation}:  > {target}  [{min},{max}] ({constraint}) | {description}
+    {relation}:  -> {target}  [{min},{max}] ({constraint}) | {description}
 ````
-**Note:** The symbols `>` and `<` indicate relation direction (forward and backward respectively).
+**Note:** The symbols `->` and `<-` indicate relation direction (forward and backward respectively).
 
 ### Elements
 
@@ -61,7 +61,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 | **{schema}** | The schema or namespace | Yes | `bookstore` |
 | **{entity}** | The entity, class, or table name | Yes | `Book`, `Author` |
 | **{attribute}** | A property with a data type | * | `title: string`, `price: decimal` |
-| **{relation}** | A link to another entity | * | `author: > Author`, `books: < Book.author` |
+| **{relation}** | A link to another entity | * | `author: -> Author`, `books: <- Book.author` |
 | **{data_type}** | The type for attributes | For attributes | `string`, `uuid`, `decimal` |
 | **{target}** | The target entity for relations | For relations | `Author`, `Book.author` |
 | **{min}/{max}** | Minimum and maximum cardinality | No | `[1,1]`, `[1,*]`, `[0,*]` |
@@ -80,12 +80,12 @@ bookstore:
     id:        uuid    [1,1] (pk)       | Unique identifier
     title:     string  [1,1]            | Book title
     price:     decimal [1,1]            | Retail price
-    author:    > Author [1,*]           | Book author(s)
+    author:    -> Author [1,*]           | Book author(s)
     
   Author:
     id:        uuid    [1,1] (pk)       | Unique identifier
     name:      string  [1,1]            | Author's name
-    books:     < Book.author [0,*]      | Books by this author
+    books:     <- Book.author [0,*]      | Books by this author
 ```
 
 ### Naming Conventions
@@ -108,7 +108,7 @@ UMS supports multiple naming conventions to accommodate different programming an
 * `enum` list comma separated values in the description
 
 ### Target Syntax Dot-Notation
-* Each relation must have one direction symbol `>` for forward and `<` for reverse in the `{target}`.
+* Each relation must have one direction symbol `->` for forward and `<-` for reverse in the `{target}`.
 
 **Entity Relation:**
 * `> {entity}`
