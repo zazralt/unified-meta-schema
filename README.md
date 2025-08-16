@@ -39,7 +39,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {data_type}
-       └── {relation}: -> {target}
+       └── {relation}:  -> {target}
 ```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{schema}`, `{entity}`, `{attribute}`, etc.).
 
