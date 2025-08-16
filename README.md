@@ -53,9 +53,8 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
     {relation}:  -> {target}  [{min},{max}] ({constraint}) | {description}
 ````
 **Note:**
-* YAML keys with special characters (including @) should be quoted (e.g., "@id", "@title").
-* Standard keys (without special characters) don't require quotes.
-* Maintain consistent indentation (2 spaces recommended) for proper hierarchy.
+* Use indentation (2 spaces recommended) for proper hierarchy.
+* Use quotes in keys with special characters, e.g. "{@metadata}".
 * Add space after colons for improved readability (e.g., key: value rather than key:value).
 * The symbols `->` and `<-` indicate relation direction (forward and backward respectively).
 
@@ -85,12 +84,12 @@ bookstore:
     id:        uuid    [1,1] (pk)       | Unique identifier
     title:     string  [1,1]            | Book title
     price:     decimal [1,1]            | Retail price
-    author:    -> Author [1,*]           | Book author(s)
+    author:    -> Author [1,*]          | Book author(s)
     
   Author:
     id:        uuid    [1,1] (pk)       | Unique identifier
     name:      string  [1,1]            | Author's name
-    books:     <- Book.author [0,*]      | Books by this author
+    books:     <- Book.author [0,*]     | Books by this author
 ```
 
 ### Naming Conventions
@@ -116,24 +115,24 @@ UMS supports multiple naming conventions to accommodate different programming an
 * Each relation must have one direction symbol `->` for forward and `<-` for reverse in the `{target}`.
 
 **Entity Relation:**
-* `> {entity}`
-* `< {entity}`
+* `-> {entity}`
+* `<- {entity}`
 
 **Single Relation:**
-* `{attr} > {entity}.{attr}`
-* `{attr} < {entity}.{attr}`
+* `{attr} -> {entity}.{attr}`
+* `{attr} <- {entity}.{attr}`
 
 **Composite Relation:**
-* `({attr1},{attr2}) > {entity}.({attr1},{attr2}`)
-* `({attr1},{attr2}) < {entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) -> {entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) <- {entity}.({attr1},{attr2}`)
 
 **External Relation:**
-* `{attr} > {schema}.{entity}.{attr}`
-* `{attr} < {schema}.{entity}.{attr}`
+* `{attr} -> {schema}.{entity}.{attr}`
+* `{attr} <- {schema}.{entity}.{attr}`
 
 **Composite External Relation:**
-* `({attr1},{attr2}) > {schema}.{entity}.({attr1},{attr2}`)
-* `({attr1},{attr2}) < {schema}.{entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) -> {schema}.{entity}.({attr1},{attr2}`)
+* `({attr1},{attr2}) <- {schema}.{entity}.({attr1},{attr2}`)
 
 ### Cardinality
 
@@ -179,19 +178,21 @@ my_schema:
 
 ```json
 {
-  "shop_db": {
-    "Customer": {
-      "customer_id": "uuid [1,1] (pk) | Primary key of Customer",
-      "name": "string [1,1] | Customer full name",
-      "orders": "Order [0,*] | All orders placed by this customer"
+  "bookstore": {
+    "Book": {
+      "id": "uuid [1,1] (pk) | Unique identifier",
+      "title": "string [1,1] | Book title",
+      "price": "decimal [1,1] | Retail price",
+      "author": "-> Author [1,*] | Book author(s)"
     },
-    "Order": {
-      "order_id": "uuid [1,1] (pk) | Primary key of Order",
-      "customer_id": "uuid [1,1] | Foreign key column to Customer",
-      "customer": "Customer.customer_id [1,1] (fk) | Relation via dot-notation"
+    "Author": {
+      "id": "uuid [1,1] (pk) | Unique identifier",
+      "name": "string [1,1] | Author's name",
+      "books": "<- Book.author [0,*] | Books by this author"
     }
   }
 }
+
 ```
 
 ### Table Representation
