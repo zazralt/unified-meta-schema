@@ -6,7 +6,7 @@
 
 The Unified Meta Schema (UMS) is a technology-agnostic specification that bridges diverse data modeling paradigms through a single, compact representation format. UMS unifies concepts from ontologies, database schemas, dataset schemas, JSON Schema, GraphQL, OpenAPI, and other modeling frameworks into a coherent YAML-based syntax.
 
-By standardizing core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, and `{max_card}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
+By standardizing core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min}`, and `{max}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
 
 ## Scope
 
@@ -49,9 +49,9 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
   '{@metadata}': '...'
   {entity}:
     '{@metadata}': '...'
-    {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) | {description}
-    {relation}:  > {target}  [{min_card},{max_card}] ({constraint}) | {description}
-    {relation}:  < {target}  [{min_card},{max_card}] ({constraint}) | {description}
+    {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
+    {relation}:  > {target}  [{min},{max}] ({constraint}) | {description}
+    {relation}:  < {target}  [{min},{max}] ({constraint}) | {description}
 ````
 **Note:** The symbols `>` and `<` indicate relation direction (forward and backward respectively).
 
@@ -125,8 +125,8 @@ shop_db:
 
 ### Cardinality
 
-* Optionally specify cardinalities as `[{min_card},{max_card}]` (whitespaces allowed).
-* `{min_card}` is the minimum number of values allowed; `{max_card}` is the maximum (or * for unbounded).
+* Optionally specify cardinalities as `[{min},{max}]` (whitespaces allowed).
+* `{min}` is the minimum number of values allowed; `{max}` is the maximum (or * for unbounded).
 * If the entire cardinality is omitted, default is `[0,*]` (optional, unbounded).
 
 ### Constraints
