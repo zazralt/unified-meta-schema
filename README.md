@@ -33,11 +33,15 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 ## Specification
 
 ### Structure
-1. `{model}`
-2. `{entity}` or `{@metadata}`
-3. `{attribute}` or `{relation}` or `{@metadata}`
+{model}
+  ├── {@metadata}
+  └── {entity}
+       ├── {@metadata}
+       ├── {attribute}: {data_type}
+       └── {relation}: > {target}
 
-Note: Curly brackets `{variable}` are used to denote template variables throughout the document (like `{model}`, `{entity}`, `{attribute}`, etc.).
+
+**Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{model}`, `{entity}`, `{attribute}`, etc.).
 
 ### Syntax
 ```yaml
@@ -62,7 +66,7 @@ Note: Curly brackets `{variable}` are used to denote template variables througho
 * **{constraint}** – Optional, comma-separated labels or key–value pairs in parentheses (e.g., `(pk,unique)`).
 * **{description}** – Optional human-readable description after `|`.
 
-Important: An entry MUST have exactly one of `{data_type}` or `{target}`, never both.
+**Important:** An entry MUST have exactly one of `{data_type}` or `{target}`, never both.
 
 ### Example
 
