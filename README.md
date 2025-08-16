@@ -43,7 +43,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
        ├── {attribute}: {data_type}
        └── {relation}:  -> {target}
 ```
-**Note:** Curly brackets `{variable}` are used to denote template variables throughout the document (like `{schema}`, `{entity}`, `{attribute}`, etc.).
+**Note:** Curly brackets `{variable}` are used to denote template variables throughout the document.
 
 ### Syntax
 ```yaml
