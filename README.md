@@ -1,8 +1,30 @@
-# Unified Meta Schema
+# Unified Meta Schema (UMS)
 
-The Unified Meta Schema (UMS) is a unified, technology-agnostic meta-schema for representing ontologies, database schemas, dataset schemas, JSON Schemas, and Avro Schemas in a single compact YAML format. It standardizes core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, `{max_card}` — enabling consistent validation, transformation, and interoperability across diverse schema paradigms.
+The Unified Meta Schema (UMS) is a technology-agnostic specification that bridges diverse data modeling paradigms through a single, compact representation format. UMS unifies concepts from ontologies, database schemas, dataset schemas, JSON Schema, GraphQL, OpenAPI, and other modeling frameworks into a coherent YAML-based syntax.
 
-**Scope:** This specification defines a concise YAML structure for expressing entities, their attributes, and relations across multiple schema paradigms with explicit datatypes and cardinalities.
+By standardizing core modeling concepts — `{model}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min_card}`, and `{max_card}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
+
+## Scope
+
+This specification:
+
+- Defines a concise YAML structure for expressing entities, their attributes, and relations
+- Provides explicit representation of datatypes and cardinality constraints
+- Supports metadata annotations at model and entity levels
+- Enables bidirectional relation mapping with rich target expression syntax
+- Facilitates transformation between different schema languages and paradigms
+- Serves as both a documentation format and an executable specification
+
+## Purpose & Benefits
+
+UMS addresses the "Tower of Babel" problem in data modeling by:
+
+- **Reducing Integration Complexity**: Convert between schema types without custom translators
+- **Preserving Semantic Richness**: Maintain constraints and relationships across transformations
+- **Enabling Knowledge Transfer**: Apply patterns across traditionally siloed domains
+- **Simplifying Documentation**: Document diverse systems using consistent terminology
+- **Supporting Schema Evolution**: Track changes consistently across technologies
+
 
 ## Specification
 
