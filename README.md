@@ -89,10 +89,13 @@ bookstore:
 ```
 
 ### Naming Conventions
+UMS supports multiple naming conventions to accommodate different programming and modeling traditions. Choose a consistent style throughout your schema:
 
-* `camelCase`
-* `PascalCase`
-* `snake_case`
+* **PascalCase**: Capitalize first letter of each word, no separators
+* **camelCase**: First word lowercase, capitalize subsequent words
+* **snake_case**: All lowercase with underscores between words
+
+**Note:** Be consistent within a single schema for better readability.
 
 ### Metadata
 * Optionally declare metadata at the `{schema}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
@@ -102,6 +105,7 @@ bookstore:
 ### Data Types
 
 * Always specify data types for attributes.
+* `enum` list comma separated values in the description
 
 ### Target Syntax Dot-Notation
 * Each relation must have one direction symbol `>` for forward and `<` for reverse in the `{target}`.
