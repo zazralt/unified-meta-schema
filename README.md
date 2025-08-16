@@ -30,15 +30,17 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ### Structure
 1. `{model}`
-2. `{entity}` or `@{metadata}`
-3. `{attribute}` or `{relation}` or `@{metadata}`
+2. `{entity}` or `{@metadata}`
+3. `{attribute}` or `{relation}` or `{@metadata}`
+
+Note: Curly brackets `{variable}` are used to denote template variables throughout the document (like `{model}`, `{entity}`, `{attribute}`, etc.).
 
 ### Syntax
 ```yaml
 {model}:
-  '@{metadata}': '...'
+  '{@metadata}': '...'
   {entity}:
-    '@{metadata}': '...'
+    '{@metadata}': '...'
     {attribute}: {data_type} [{min_card},{max_card}] ({constraint}) | {description}
     {relation}:  > {target}  [{min_card},{max_card}] ({constraint}) | {description}
     {relation}:  < {target}  [{min_card},{max_card}] ({constraint}) | {description}
