@@ -51,7 +51,6 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
     '{@metadata}': '...'
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
     {relation}:  > {target}  [{min},{max}] ({constraint}) | {description}
-    {relation}:  < {target}  [{min},{max}] ({constraint}) | {description}
 ````
 **Note:** The symbols `>` and `<` indicate relation direction (forward and backward respectively).
 
