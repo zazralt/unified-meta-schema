@@ -32,6 +32,8 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 
 ## Specification
 
+This specification defines how UMS uses YAML syntax to represent schema structures across multiple modeling paradigms.
+
 ### Structure
 ```
 {schema}
