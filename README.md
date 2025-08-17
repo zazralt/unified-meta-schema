@@ -277,26 +277,31 @@ Constraints specify additional rules that refine the values of attributes or rel
 
 ### Prefixes
 
-* Declare prefixes at the `{schema}` level using `@prefix`.
-* Use prefixed names anywhere—`{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
-* Expand prefixes before validation and before parsing cardinality/constraints.
-* Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
-* Quote keys that contain `/` or `#` in YAML (e.g., `"http:Thing"`), and prefer quoting when unsure.
+Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an identifier is expected.
+
+* Prefixes MUST be declared at the `{schema}` level using `@prefix`.
+* Prefixed names MAY be used in `{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, and `{target}`, including in `{target}` dot-notation.
+* Prefixes MUST be expanded to absolute IRIs before validation and before parsing cardinality/constraints.
+* A colon (`:`) MUST directly follow the prefix alias (e.g., `ex:Person`, not `ex: Person`).
+* Keys containing `/` or `#` in YAML SHOULD be quoted (e.g., `"http:Thing"`). Quoting is RECOMMENDED when unsure.
 
 **Syntax:**
+
 ```yaml
   "@prefix":
-    {alias}:  {link}
+    {alias}: {link}
 ```
 
 **Example:**
+
 ```yaml
   "@prefix":
     ex:  "https://example.org/onto#"
     xsd: "http://www.w3.org/2001/XMLSchema#"
+  
   "ex:Customer":
-    customerId:  xsd:string  [1,1] (pk)                 | Customer identifier
-    orders:      -> ex:Order [0,*]                      | All orders of this customer
+    customerId:  xsd:string [1,1] (pk) | Customer identifier
+    orders:      -> ex:Order [0,*]     | All orders of this customer
 ```
 
 ### Alignment Rules
