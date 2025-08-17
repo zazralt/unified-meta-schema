@@ -60,7 +60,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
-* Inidicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
+* Indicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
 
 ### Schema Elements
 The following YAML keys define the accepted schema elements in UMS:
@@ -107,7 +107,7 @@ bookstore:
     id:        uuid    [1,1] (pk)       | Unique identifier
     title:     string  [1,1]            | Book title
     price:     decimal [1,1]            | Retail price
-    author:    id -> Author.id [1,*]    | Book author(s)
+    author:    -> Author [1,*]          | Book author(s)
     
   Author:
     id:        uuid    [1,1] (pk)       | Unique identifier
@@ -178,6 +178,10 @@ Reference to multiple attributes in the relation:
     {relation}: {attr1},{attr2} <- {entity}.{attr1},{attr2}
 ```
 
+**Note:**
+* Composite relations list multiple entity attributes separated by commas (no spaces).  
+* Multiple entities MAY also be listed, separated by commas: `{entity1},{entity2}`.  
+
 #### External Relation
 
 Fully qualified reference across schema, entity, and attribute:
@@ -196,10 +200,6 @@ Fully qualified reference with multiple attributes:
     {relation}: {attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}
     {relation}: {attr1},{attr2} <- {schema}.{entity}.{attr1},{attr2}
 ```
-
-
-
-
 
 ### Cardinality
 
@@ -238,7 +238,6 @@ my_schema:
 
 ### Alignment Rules
 
-* Use spaces only (no tabs); 2-space indent per level.
 * Add whitespace after `:` so the first character of `{data_type}` / `{target}` starts at a single global column across the file.
 
 ### JSON Representation
