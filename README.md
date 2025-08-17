@@ -153,22 +153,36 @@ UMS supports multiple naming conventions to accommodate different programming an
 
 #### Common Data Types
 
-| Category         | UMS Type             | Typical Target Mappings                                                                          | Notes                        |
-| ---------------- | -------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------- |
-| **Identifiers**  | `uuid`               | SQL: `UUID`; JSON: `string` (format=uuid); GraphQL: `ID`; RDF: `xsd:string`                      | Globally unique identifier   |
-| **Strings**      | `string`             | SQL: `varchar`; JSON: `string`; GraphQL: `String`; RDF: `xsd:string`                             | General text value           |
-|                  | `text`               | SQL: `text`; JSON: `string`; GraphQL: `String`; RDF: `xsd:string`                                | Long or unbounded string     |
-| **Numbers**      | `int` / `integer`    | SQL: `int`; JSON: `integer`; GraphQL: `Int`; RDF: `xsd:integer`                                  | Whole numbers                |
-|                  | `decimal`            | SQL: `decimal`; JSON: `number`; GraphQL: custom `Decimal`; RDF: `xsd:decimal`                    | Precision-controlled numbers |
-|                  | `float`              | SQL: `float`; JSON: `number`; GraphQL: `Float`; RDF: `xsd:float`                                 | Approximate numeric          |
-| **Booleans**     | `bool` / `boolean`   | SQL: `boolean`; JSON: `boolean`; GraphQL: `Boolean`; RDF: `xsd:boolean`                          | True/false                   |
-| **Dates/Times**  | `date`               | SQL: `date`; JSON: `string` (format=date); GraphQL: custom scalar; RDF: `xsd:date`               | Calendar date                |
-|                  | `time`               | SQL: `time`; JSON: `string` (format=time); GraphQL: custom scalar; RDF: `xsd:time`               | Time of day                  |
-|                  | `datetime`           | SQL: `timestamp`; JSON: `string` (format=date-time); GraphQL: custom scalar; RDF: `xsd:dateTime` | Combined date and time       |
-| **Binary**       | `binary`             | SQL: `bytea`/`blob`; JSON: base64 string; GraphQL: custom scalar; RDF: `xsd:base64Binary`        | Raw binary data              |
-| **Collections**  | `array(type)`        | SQL: array; JSON: array; GraphQL: `[Type]`; RDF: repeated property                               | Homogeneous collections      |
-| **Enumerations** | `enum(v1,v2,…)`      | SQL: enum; JSON: string with enum; GraphQL: `enum`; RDF: controlled vocabulary                   | Explicit value set           |
-| **Mixed**        | `union(type1,type2)` | JSON: `oneOf`; GraphQL: union; RDF: multiple ranges                                              | Multiple acceptable types    |
+| Category        | UMS Type      | Examples                             | Notes                        |
+| --------------- | ------------- | ------------------------------------ | ---------------------------- |
+| **Identifiers** | `uuid`        | `UUID`, `string(uuid)`, `ID`         | Globally unique identifier   |
+| **Strings**     | `string`      | `varchar`, `string`, `String`        | General text value           |
+|                 | `text`        | `text`, `string`, `String`           | Long or unbounded string     |
+| **Numbers**     | `int`         | `int`, `integer`, `Int`              | Whole numbers                |
+|                 | `decimal`     | `decimal`, `number`, `Decimal`       | Precision-controlled numbers |
+|                 | `float`       | `float`, `number`, `Float`           | Approximate numeric          |
+| **Booleans**    | `boolean`     | `boolean`, `Boolean`                 | True/false                   |
+| **Dates/Times** | `date`        | `date`, `Date`                       | Calendar date                |
+|                 | `time`        | `time`, `Time`                       | Time of day                  |
+|                 | `datetime`    | `timestamp`, `date-time`, `DateTime` | Date and time                |
+| **Binary**      | `binary`      | `blob`, `base64`, `Binary`           | Raw binary data              |
+| **Collections** | `array(type)` | `array`, `[Type]`                    | Homogeneous collections      |
+| **Enums**       | `enum(...)`   | `enum`                               | Explicit value set           |
+| **Mixed**       | `union(...)`  | `oneOf`, `union`                     | Multiple acceptable types    |
+
+#### Arrays
+
+Attributes MAY declare an array of a given data type using the `array(...)` constructor:
+
+```yaml
+    {attribute}: array({data_type}) [min,max] (constraint) | description
+```
+
+Example:
+
+```yaml
+    tags: array(string) [0,*] | Tags assigned to the item
+```
 
 #### Enumerations
 Attributes MAY declare an enumerated type using the enum(...) constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
