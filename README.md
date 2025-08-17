@@ -423,7 +423,9 @@ bookstore:
   "@import": ./schemas/library.yaml
 ```
 
-**Note:** All schemas defined in the same YAML file/document are automatically in scope. No @import is required for one schema to reference another in the same file.
+**Note:** 
+* All schemas defined in the same YAML file/document are automatically in scope. No @import is required for one schema to reference another in the same file.
+* Multiple imports can be expressed as a YAML sequence.
 
 ---
 
