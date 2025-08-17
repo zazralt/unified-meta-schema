@@ -77,13 +77,19 @@ The following YAML keys define the accepted schema elements in UMS:
 ### Definition
 Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
-| Element         | Description                               | Syntactic Form                   | Required              | Example                       |
-|-----------------|-------------------------------------------|----------------------------------|:---------------------:|-------------------------------|
-| **{data_type}** | The type for attributes                   | Appears first, after colon       | Yes (for attributes)  | `title: string`               |
-| **{target}**    | The target entity for relations           | `-> Target` or `<- Source.relation` (after colon) | Yes (for relations)   | `author: -> Author`, `books: <- Book.author` |
-| **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]` after type/target    | No                    | `[1,1]`, `[0,*]`              |
-| **{constraint}**| Labels or key-value pairs in parentheses  | `(constraint)` after cardinality | No                    | `(pk)`                        |
-| **{description}** | Human-readable description              | `\| description` at the end      | No                    | `\| Book title`               |
+| Element         | Description                               | Notation           | Order | Required              | Example                 |
+|-----------------|-------------------------------------------|--------------------|-------|-----------------------|-------------------------|
+| **{data_type}** | The type for attributes                   |                    | 1     | Yes (for attributes)  | `string`                |
+| **{target}**    | The target entity for relations           | `->` or `<-`       | 1     | Yes (for relations)   | `-> Author`             |
+| **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
+| **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
+| **{description}** | Human-readable description              | `|` (pipe)         | 4     | No                    | `| Book title`          |
+
+Parse Logic:
+1. Strip **description**: split on the first unescaped `|`.
+2. Strip **constraint**: remove the rightmost balanced `( … )` (outside quotes/brackets).
+3. Strip **cardinality**: remove the rightmost balanced `[min,max]`.
+4. What remains is the **head**: either a `data_type` (attribute) or an **arrow + target** (relation).
 
 ### Example
 
