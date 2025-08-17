@@ -237,7 +237,7 @@ Fully qualified reference with multiple attributes:
 
 ### Prefixes
 
-* Declare prefixes at the `{schema}` level using `@prefix` (e.g., `@prefix: { ex: "https://example.org/onto#", xsd: "http://www.w3.org/2001/XMLSchema#" }`).
+* Declare prefixes at the `{schema}` level using `@prefix`.
 * Use prefixed names anywhere—`{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`—including `{target}` dot-notation.
 * Expand prefixes before validation and before parsing cardinality/constraints.
 * Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
