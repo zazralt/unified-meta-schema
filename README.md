@@ -140,8 +140,8 @@ Great — here’s the refined section with the **normative rule** at the top an
 ### Dot-Notation
 Dot-notation is used to qualify names across different scopes:
 
-* **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
 * **`{entity}.{attribute}`** — reference within a schema, scoped to an entity
+* **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
 
 ### Target Syntax
 
