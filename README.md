@@ -102,7 +102,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
 
-**Parsing Logic:**
+Parsing Logic:
 A YAML value MUST be parsed from **right to left**: first strip the `| description` (if present), then the `(constraint)`, then the `[min,max]`. The remaining head is interpreted as `{data_type}` (for attributes) or `{target}` (for relations). Syntactically, the order of elements is left-to-right. Parsing SHOULD proceed right-to-left for deterministic extraction.
 
 ### Example
