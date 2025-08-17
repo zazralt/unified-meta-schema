@@ -152,7 +152,7 @@ Attributes MAY declare an enumerated type using the enum(...) constructor, where
 #### Multiple Types
 Attributes MAY allow a union of multiple data types (comma-separated, no spaces):
 ```yaml
-    {attribute}: data_type1},{data_type1}
+    {attribute}: {data_type1},{data_type1}
 ```
 
 ### Target Syntax
