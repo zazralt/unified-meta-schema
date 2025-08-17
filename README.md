@@ -233,15 +233,42 @@ Fully qualified reference with multiple attributes:
 
 ### Cardinality
 
-* Optionally specify cardinalities as `[{min},{max}]` (whitespaces allowed).
-* `{min}` is the minimum number of values allowed; `{max}` is the maximum (or * for unbounded).
-* If the entire cardinality is omitted, default is `[0,*]` (optional, unbounded).
+Cardinality specifies the minimum and maximum number of values allowed.
+
+* Cardinality is written as `[{min},{max}]` (whitespace allowed).
+* `{min}` is the minimum number of values; `{max}` is the maximum (or `*` for unbounded).
+* If cardinality is omitted, the default is `[0,*]` (optional, unbounded).
+* Keyword shorthands MAY be used as aliases for common numeric patterns.
+
+**Keywords:**
+
+| Numeric | Meaning         | Keywords / Shorthand          |
+| ------- | --------------- | ----------------------------- |
+| `[1,1]` | exactly one     | `[required]`, `[mandatory]`   |
+| `[0,1]` | zero or one     | `[optional]`                  |
+| `[0,*]` | zero or more    | `[optional*]`                 |
+| `[1,*]` | one or more     | `[required*]`, `[mandatory*]` |
+| `[n,m]` | between n and m | *(no shorthand)*              |
 
 ### Constraints
 
-* Optionally specify constraints in parentheses, comma-separated `(,)` (whitespaces allowed and ignored).
-* Common labels: `pk` (primary key), `fk` (foreign key), `unique`.
-* Key–value examples: `(default=now())`, `(pattern=^[A-Z]{2}\d{4}$)`.
+* Constraints refine attribute or relation definitions.
+* They are written in parentheses `( … )` immediately after the data type or target.
+* Multiple constraints MAY be comma-separated; whitespace is ignored.
+
+| Constraint       | Meaning                                    | Example                                        |
+| ---------------- | ------------------------------------------ | ---------------------------------------------- |
+| `(pk)`           | Primary key (implies required + unique)    | `id: uuid [1,1] (pk)`                          |
+| `(fk)`           | Foreign key / reference to another entity  | `author_id: uuid [1,1] (fk)`                   |
+| `(unique)`       | Value must be distinct across all entities | `email: string [1,1] (unique)`                 |
+| `(default=…)`    | Default value if none provided             | `created: date [1,1] (default=now())`          |
+| `(pattern=…)`    | Regex or format pattern constraint         | `code: string [1,1] (pattern=^[A-Z]{2}\d{4}$)` |
+| `(check=…)`      | General condition expression               | `age: int [0,1] (check=>=0)`                   |
+| `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int [0,1] (min=1,max=100)`               |
+
+**Note:**
+* Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
+
 
 ### Description
 
