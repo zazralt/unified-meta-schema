@@ -74,6 +74,14 @@ The following YAML keys define the accepted schema elements in UMS:
 
 *\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
+**Syntax:**
+```yaml
+{schema}:
+  {entity}:
+    {attribute}: ...
+    {relation}:  ...
+```
+
 ### Definition
 Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
