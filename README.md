@@ -77,13 +77,13 @@ The following YAML keys define the accepted schema elements in UMS:
 ### Definition
 Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
-| Element         | Description                               | Notation           | Required              | Example                 |
-|-----------------|-------------------------------------------|--------------------|:---------------------:|-------------------------|
-| **{data_type}** | The type for attributes                   | *after colon*      | Yes (for attributes)  | `title: string`         |
-| **{target}**    | The target entity for relations           | `->` or `<-`       | Yes (for relations)   | `author: -> Author`     |
-| **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | No                    | `[1,1]`, `[0,*]`        |
-| **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | No                    | `(pk)`                  |
-| **{description}** | Human-readable description              | `\|` (pipe)        | No                    | `\| Book title`          |
+| Element         | Description                               | Syntactic Form                   | Required              | Example                       |
+|-----------------|-------------------------------------------|----------------------------------|:---------------------:|-------------------------------|
+| **{data_type}** | The type for attributes                   | Appears first, after colon       | Yes (for attributes)  | `title: string`               |
+| **{target}**    | The target entity for relations           | `-> Target` or `<- Source.relation` (after colon) | Yes (for relations)   | `author: -> Author`, `books: <- Book.author` |
+| **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]` after type/target    | No                    | `[1,1]`, `[0,*]`              |
+| **{constraint}**| Labels or key-value pairs in parentheses  | `(constraint)` after cardinality | No                    | `(pk)`                        |
+| **{description}** | Human-readable description              | `\| description` at the end      | No                    | `\| Book title`               |
 
 ### Example
 
