@@ -62,7 +62,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
 * The symbols `->` (forward) and `<-` (backward) indicate relation direction.
 
-### Elements
+### Core Elements
 
 | Element | Description | Required | Example |
 |---------|-------------|:--------:|---------|
@@ -70,6 +70,10 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 | **{entity}** | The entity, class, or table name | Yes | `Book`, `Author` |
 | **{attribute}** | A property with a data type | * | `title: string`, `price: decimal` |
 | **{relation}** | A link to another entity | * | `author: -> Author`, `books: <- Book.author` |
+
+### Details
+| Element | Description | Required | Example |
+|---------|-------------|:--------:|---------|
 | **{data_type}** | The type for attributes | For attributes | `string`, `uuid`, `decimal` |
 | **{target}** | The target entity for relations | For relations | `Author`, `Book.author` |
 | **{min}/{max}** | Minimum and maximum cardinality | No | `[1,1]`, `[1,*]`, `[0,*]` |
