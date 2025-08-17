@@ -249,15 +249,13 @@ Fully qualified reference with multiple attributes:
     {alias}:  {link}
 ```
 
-Example:
+**Example:**
 ```yaml
-MySchema:
   "@prefix":
     ex:  "https://example.org/onto#"
     xsd: "http://www.w3.org/2001/XMLSchema#"
   "ex:Customer":
     customerId:  xsd:string  [1,1] (pk)                 | Customer identifier
-    name:        xsd:string  [1,1]                      | Full name
     orders:      -> ex:Order [0,*]                      | All orders of this customer
 ```
 
