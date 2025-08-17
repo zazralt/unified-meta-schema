@@ -243,15 +243,22 @@ Fully qualified reference with multiple attributes:
 * Do not insert a space after the prefix colon (write `ex:Person`, not `ex: Person`).
 * Quote keys that contain `/` or `#` in YAML (e.g., `"http:Thing"`), and prefer quoting when unsure.
 
+**Syntax:**
 ```yaml
-my_schema:
+  "@prefix":
+    {alias}:  {link}
+```
+
+Example:
+```yaml
+MySchema:
   "@prefix":
     ex:  "https://example.org/onto#"
     xsd: "http://www.w3.org/2001/XMLSchema#"
   "ex:Customer":
-    customer_id: xsd:string [1,1] (pk)                 | Customer identifier
-    name:        xsd:string [1,1]                      | Full name
-    orders:      ex:Order   [0,*]                      | All orders of this customer
+    customerId:  xsd:string  [1,1] (pk)                 | Customer identifier
+    name:        xsd:string  [1,1]                      | Full name
+    orders:      -> ex:Order [0,*]                      | All orders of this customer
 ```
 
 ### Alignment Rules
