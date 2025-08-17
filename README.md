@@ -70,6 +70,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 | **{entity}** | The entity, class, or table name | Yes | `Book`, `Author` |
 | **{attribute}** | A property with a data type | * | `title: string`, `price: decimal` |
 | **{relation}** | A link to another entity | * | `author: -> Author`, `books: <- Book.author` |
+*\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
 ### Details
 | Element | Description | Required | Example |
@@ -80,7 +81,6 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 | **{constraint}** | Labels or key-value pairs in parentheses | No | `(pk)` |
 | **{description}** | Human-readable description after pipe | No | `\| Book title` |
 
-*\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
 ### Example
 
