@@ -170,6 +170,9 @@ UMS supports multiple naming conventions to accommodate different programming an
 | **Enums**       | `enum(...)`   | `enum`                               | Explicit value set           |
 | **Mixed**       | `union(...)`  | `oneOf`, `union`                     | Multiple acceptable types    |
 
+Note:
+* Constraints such as (precision=…,scale=…), (min=…,max=…), (pattern=…), or (default=…) MAY be applied to refine these types.
+
 ---
 
 #### Arrays
@@ -334,6 +337,7 @@ Constraints specify additional rules that refine the values of attributes or rel
 | `(pattern=…)`    | Regex or format pattern constraint         | `code: string [1,1] (pattern=^[A-Z]{2}\d{4}$)` |
 | `(check=…)`      | General condition expression               | `age: int [0,1] (check=>=0)`                   |
 | `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int [0,1] (min=1,max=100)`               |
+| `(precision=…,scale=…)` | Numeric precision/scale for decimals/floats | `price: decimal [1,1] (precision=10,scale=2)`  |
 
 **Note:**
 * Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
