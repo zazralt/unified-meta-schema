@@ -79,7 +79,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 
 | Element         | Description                               | Notation           | Order | Required              | Example                 |
 |-----------------|-------------------------------------------|--------------------|-------|-----------------------|-------------------------|
-| **{data_type}** | The type for attributes                   |                    | 1     | Yes (for attributes)  | `string`                |
+| **{data_type}** | The type for attributes                   | type name          | 1     | Yes (for attributes)  | `string`                |
 | **{target}**    | The target entity for relations           | `->` or `<-`       | 1     | Yes (for relations)   | `-> Author`             |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
@@ -92,6 +92,9 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 ```
 
 **Parse Logic:**
+```
+definition := ( data_type | target ) cardinality? constraint? description?
+```
 1. Strip **description**: split on the first unescaped `|`.
 2. Strip **constraint**: remove the rightmost balanced `( … )` (outside quotes/brackets).
 3. Strip **cardinality**: remove the rightmost balanced `[min,max]`.
