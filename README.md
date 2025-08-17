@@ -155,36 +155,51 @@ Each relation MUST specify a direction symbol:
 
 Reference to the entire entity:
 
-* `-> {entity}`
-* `<- {entity}`
+```yaml
+    {relation}:  -> {entity}
+    {relation}:  <- {entity}
+```
 
 #### Qualified Relation
 
 Reference to a specific attribute of the entity (typically a primary/foreign key):
 
-* `{attr} -> {entity}.{attr}`
-* `{attr} <- {entity}.{attr}`
+```yaml
+    {relation}:  {attr} -> {entity}.{attr}
+    {relation}:  {attr} <- {entity}.{attr}
+```
 
 #### Composite Relation
 
 Reference to multiple attributes in the relation:
 
-* `{attr1},{attr2} -> {entity}.{attr1},{attr2}`
-* `{attr1},{attr2} <- {entity}.{attr1},{attr2}`
+```yaml
+    {relation}:  {attr1},{attr2} -> {entity}.{attr1},{attr2}
+    {relation}:  {attr1},{attr2} <- {entity}.{attr1},{attr2}
+```
 
 #### External Relation
 
 Fully qualified reference across schema, entity, and attribute:
 
-* `{attr} -> {schema}.{entity}.{attr}`
-* `{attr} <- {schema}.{entity}.{attr}`
+```yaml
+    {relation}:  {attr} -> {schema}.{entity}.{attr}
+    {relation}:  {attr} <- {schema}.{entity}.{attr}
+```
+
 
 #### Composite External Relation
 
 Fully qualified reference with multiple attributes:
 
-* `{attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}`
-* `{attr1},{attr2} <- {schema}.{entity}.{attr1},{attr2}`
+```yaml
+    {relation}:  {attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}
+    {relation}:  {attr1},{attr2} <- {schema}.{entity}.{attr1},{attr2}
+```
+
+
+
+
 
 ### Cardinality
 
