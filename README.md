@@ -252,7 +252,8 @@ Cardinality specifies the minimum and maximum number of values allowed.
 
 ### Constraints
 
-* Constraints refine attribute or relation definitions.
+Constraints specify additional rules that refine the values of attributes or relations.
+
 * They are written in parentheses `( … )` immediately after the data type or target.
 * Multiple constraints MAY be comma-separated; whitespace is ignored.
 
