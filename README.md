@@ -83,7 +83,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | **{target}**    | The target entity for relations           | `->` or `<-`       | Yes (for relations)   | `author: -> Author`     |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | No                    | `(pk)`                  |
-| **{description}** | Human-readable description              | `\|` (pipe)        | No                    | `| Book title`          |
+| **{description}** | Human-readable description              | `\|` (pipe)        | No                    | `\| Book title`          |
 
 ### Example
 
