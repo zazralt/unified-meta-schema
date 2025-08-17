@@ -166,7 +166,6 @@ Reference to a specific attribute of the entity (typically a primary/foreign key
 
 ```yaml
     {relation}: {attr} -> {entity}.{attr}
-    {relation}: {attr} <- {entity}.{attr}
 ```
 
 #### Composite Relation
@@ -175,7 +174,6 @@ Reference to multiple attributes in the relation:
 
 ```yaml
     {relation}: {attr1},{attr2} -> {entity}.{attr1},{attr2}
-    {relation}: {attr1},{attr2} <- {entity}.{attr1},{attr2}
 ```
 
 **Note:**
@@ -188,7 +186,6 @@ Fully qualified reference across schema, entity, and attribute:
 
 ```yaml
     {relation}: {attr} -> {schema}.{entity}.{attr}
-    {relation}: {attr} <- {schema}.{entity}.{attr}
 ```
 
 
@@ -198,7 +195,6 @@ Fully qualified reference with multiple attributes:
 
 ```yaml
     {relation}: {attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}
-    {relation}: {attr1},{attr2} <- {schema}.{entity}.{attr1},{attr2}
 ```
 
 ### Cardinality
