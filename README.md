@@ -177,9 +177,13 @@ Reference to the entire entity:
     {relation}: -> {entity}
 ```
 
-Union of multiple entities (comma-separated, no spaces):
+#### Untion Relation
+
+A union relation allows a single relation to target multiple entities. Entities (and optionally their attributes) MUST be listed comma-separated without spaces.
+
 ```yaml
     {relation}: -> {entity1},{entity2}
+    {relation}: -> {entity1}.{attr1},{entity2}.{attr1}
 ```
 
 
