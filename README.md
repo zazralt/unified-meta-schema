@@ -170,6 +170,8 @@ UMS supports multiple naming conventions to accommodate different programming an
 | **Enums**       | `enum(...)`   | `enum`                               | Explicit value set           |
 | **Mixed**       | `union(...)`  | `oneOf`, `union`                     | Multiple acceptable types    |
 
+---
+
 #### Arrays
 
 Attributes MAY declare an array of a given data type using the `array(...)` constructor:
@@ -184,17 +186,49 @@ Example:
     tags: array(string) [0,*] | Tags assigned to the item
 ```
 
+---
+
 #### Enumerations
-Attributes MAY declare an enumerated type using the enum(...) constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
+
+Attributes MAY declare an enumerated type using the `enum(...)` constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
+
 ```yaml
     {attribute}: enum(value1,value2,…) [min,max] (constraint) | description
 ```
 
-#### Multiple Types
-Attributes MAY allow a union of multiple data types (comma-separated, no spaces):
+Example:
+
 ```yaml
-    {attribute}: union({data_type1},{data_type1})  [min,max] (constraint) | description
+    status: enum(active,inactive,pending) [1,1] | Current status
 ```
+
+---
+
+#### Multiple Types
+
+Attributes MAY allow a union of multiple data types using the `union(...)` constructor:
+
+```yaml
+    {attribute}: union({data_type1},{data_type2},…) [min,max] (constraint) | description
+```
+
+Example:
+
+```yaml
+    identifier: union(uuid,string) [1,1] | UUID or legacy string identifier
+```
+
+**Note:**
+
+* `union(...)` MAY include **primitive types**, `enum(...)`, or `array(...)`.
+* Nesting is allowed, e.g.:
+
+  ```yaml
+      value: union(array(string),enum(red,blue)) [0,*] | Either a list of strings or a color enum
+  ```
+* Validators SHOULD resolve each option independently and enforce the specified cardinality and constraints.
+
+---
 
 ### Target Syntax
 
