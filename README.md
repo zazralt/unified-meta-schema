@@ -262,6 +262,7 @@ Constraints specify additional rules that refine the values of attributes or rel
 | `(pk)`           | Primary key (implies required + unique)    | `id: uuid [1,1] (pk)`                          |
 | `(fk)`           | Foreign key / reference to another entity  | `author_id: uuid [1,1] (fk)`                   |
 | `(unique)`       | Value must be distinct across all entities | `email: string [1,1] (unique)`                 |
+| `(index)`        | Marks attribute for indexing            )  | `id: uuid [1,1] (index)`                       |
 | `(default=…)`    | Default value if none provided             | `created: date [1,1] (default=now())`          |
 | `(pattern=…)`    | Regex or format pattern constraint         | `code: string [1,1] (pattern=^[A-Z]{2}\d{4}$)` |
 | `(check=…)`      | General condition expression               | `age: int [0,1] (check=>=0)`                   |
