@@ -8,6 +8,8 @@ The Unified Meta Schema (UMS) is a technology-agnostic specification that bridge
 
 By standardizing core modeling concepts — `{schema}`, `{entity}`, `{attribute}`, `{relation}`, `{data_type}`, `{target}`, `{min}`, and `{max}` — UMS enables seamless transformation, validation, and interoperability between previously incompatible schema ecosystems.
 
+---
+
 ## Scope
 
 This specification:
@@ -19,6 +21,8 @@ This specification:
 - Facilitates transformation between different schema languages and paradigms
 - Serves as both a documentation format and an executable specification
 
+---
+
 ## Purpose & Benefits
 
 UMS addresses the "Tower of Babel" problem in data modeling by:
@@ -29,6 +33,7 @@ UMS addresses the "Tower of Babel" problem in data modeling by:
 - **Simplifying Documentation**: Document diverse systems using consistent terminology
 - **Supporting Schema Evolution**: Track changes consistently across technologies
 
+---
 
 ## Specification
 
@@ -44,6 +49,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
        └── {relation}:  {target}
 ```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document.
+
+---
 
 ### Syntax
 ```yaml
@@ -61,6 +68,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
 * Indicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
+
+---
 
 ### Schema Elements
 The following YAML keys define the accepted schema elements in UMS:
@@ -82,6 +91,8 @@ The following YAML keys define the accepted schema elements in UMS:
     {relation}:  ...
 ```
 
+---
+
 ### Definition
 Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
@@ -102,9 +113,13 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
 
+---
+
 #### Parsing Logic
 
 A YAML value MUST be parsed from **right to left**: first strip the `| description` (if present), then the `(constraint)`, then the `[min,max]`. The remaining head is interpreted as `{data_type}` (for attributes) or `{target}` (for relations). Syntactically, the order of elements is left-to-right. Parsing SHOULD proceed right-to-left for deterministic extraction.
+
+---
 
 ### Example
 
@@ -124,6 +139,8 @@ bookstore:
     books:     <- Book.author [0,*]     | Books by this author
 ```
 
+---
+
 ### Naming Conventions
 UMS supports multiple naming conventions to accommodate different programming and modeling traditions. Choose a consistent style throughout your schema:
 
@@ -133,6 +150,8 @@ UMS supports multiple naming conventions to accommodate different programming an
 * **kebab-case**: All lowercase with hyphens between words
 
 **Note:** Be consistent within a single schema for better readability.
+
+---
 
 ### Metadata
 * Optionally declare metadata at the `{schema}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
@@ -146,6 +165,8 @@ UMS supports multiple naming conventions to accommodate different programming an
   {entity}:
     "{@metadata}": "..."
 ````
+
+---
 
 ### Data Types
 
@@ -170,8 +191,7 @@ UMS supports multiple naming conventions to accommodate different programming an
 | **Enums**       | `enum(...)`   | `enum`                               | Explicit value set           |
 | **Mixed**       | `union(...)`  | `oneOf`, `union`                     | Multiple acceptable types    |
 
-Note:
-* Constraints such as (precision=…,scale=…), (min=…,max=…), (pattern=…), or (default=…) MAY be applied to refine these types.
+**Note:** Constraints such as (precision=…,scale=…), (min=…,max=…), (pattern=…), or (default=…) MAY be applied to refine these types.
 
 ---
 
@@ -183,7 +203,7 @@ Attributes MAY declare an array of a given data type using the `array(...)` cons
     {attribute}: array({data_type}) [min,max] (constraint) | description
 ```
 
-Example:
+**Example:**
 
 ```yaml
     tags: array(string) [0,*] | Tags assigned to the item
@@ -199,7 +219,7 @@ Attributes MAY declare an enumerated type using the `enum(...)` constructor, whe
     {attribute}: enum(value1,value2,…) [min,max] (constraint) | description
 ```
 
-Example:
+**Example:**
 
 ```yaml
     status: enum(active,inactive,pending) [1,1] | Current status
@@ -215,7 +235,7 @@ Attributes MAY allow a union of multiple data types using the `union(...)` const
     {attribute}: union({data_type1},{data_type2},…) [min,max] (constraint) | description
 ```
 
-Example:
+**Example:**
 
 ```yaml
     identifier: union(uuid,string) [1,1] | UUID or legacy string identifier
@@ -292,8 +312,7 @@ Reference to multiple attributes in the relation:
 
 ---
 
-**Note:**
-* Composite relations list multiple entity attributes separated by commas (no spaces).  
+**Note:** Composite relations list multiple entity attributes separated by commas (no spaces).  
 
 #### External Relation
 
@@ -334,6 +353,8 @@ Cardinality specifies the minimum and maximum number of values allowed.
 | `[1,*]` | one or more     | `[required*]`, `[mandatory*]` |
 | `[n,m]` | between n and m | *(no shorthand)*              |
 
+----
+
 ### Constraints
 
 Constraints specify additional rules that refine the values of attributes or relations.
@@ -353,8 +374,7 @@ Constraints specify additional rules that refine the values of attributes or rel
 | `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int [0,1] (min=1,max=100)`               |
 | `(precision=…,scale=…)` | Numeric precision/scale for decimals/floats | `price: decimal [1,1] (precision=10,scale=2)`  |
 
-**Note:**
-* Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
+**Note:** Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
 
 ----
 
@@ -440,8 +460,7 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 }
 ```
 
-**Note:**
-* In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
+**Note:** In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
 
 ---
 
@@ -457,8 +476,7 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 | bookstore | Author | name      |          | string     |             | 1   | 1   |            | Author’s name        |
 | bookstore | Author |           | books    |            | Book.author | 0   | \*  |            | Books by this author |
 
-**Note:**
-* In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
+**Note:** In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
 
 ---
 
