@@ -356,10 +356,39 @@ Constraints specify additional rules that refine the values of attributes or rel
 **Note:**
 * Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
 
+----
 
 ### Description
 
 * Optionally add human-readable descriptions after `|`.
+
+---
+
+### Multiple Schemas
+A UMS document MAY contain more than one `{schema}` key at the root level.
+Each schema is an independent namespace, and entities inside are scoped by that schema name.
+
+**Example:**
+
+```yaml
+bookstore:
+  Book:
+    id: uuid [1,1] (pk)
+    title: string [1,1]
+
+library:
+  Library:
+    id: uuid [1,1] (pk)
+    name: string [1,1]
+    books: -> bookstore.Book [0,*]
+```
+*Here `library` and `bookstore` are separate schemas, but relations can cross-reference using dot-notation (`bookstore.Book`).*
+
+**Note:**
+* UMS MAY also use YAML multi-document files with ---. Each document contains one or more schemas; processors SHOULD treat all documents in the file as a single model during resolution.
+* Use one document with multiple schemas for tightly coupled models; use ----separated documents for modular/versioned distribution.
+
+---
 
 ### Prefixes
 
@@ -389,10 +418,7 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
     customerId:  xsd:string [1,1] (pk) | Customer identifier
     orders:      -> ex:Order [0,*]     | All orders of this customer
 ```
-
-### Alignment Rules
-
-* Add whitespace after `:` so the first character of `{data_type}` / `{target}` starts at a single global column across the file.
+---
 
 ### JSON Representation
 
@@ -417,6 +443,8 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 **Note:**
 * In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
 
+---
+
 ### Table Representation
 
 | schema    | entity | attribute | relation | data\_type | target      | min | max | constraint | description          |
@@ -429,8 +457,10 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 | bookstore | Author | name      |          | string     |             | 1   | 1   |            | Author’s name        |
 | bookstore | Author |           | books    |            | Book.author | 0   | \*  |            | Books by this author |
 
-**Note:** In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
+**Note:**
+* In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
 
+---
 
 ### Schema Types
 
