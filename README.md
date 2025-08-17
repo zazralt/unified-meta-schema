@@ -326,23 +326,25 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
     }
   }
 }
-
 ```
+
+**Note:**
+* In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
 
 ### Table Representation
 
-| schema    | entity   | attribute    | relation | data\_type | target                | min | max | constraint | description                        |
-| -------- | -------- | ------------ | -------- | ---------- | --------------------- | --------- | --------- | ---------- | ---------------------------------- |
-| shop\_db | Customer | customer\_id |          | uuid       |                       | 1         | 1         | pk         | Primary key of Customer            |
-| shop\_db | Customer | name         |          | string     |                       | 1         | 1         |            | Customer full name                 |
-| shop\_db | Customer |              | orders   |            | Order                 | 0         | \*        |            | All orders placed by this customer |
-| shop\_db | Order    | order\_id    |          | uuid       |                       | 1         | 1         | pk         | Primary key of Order               |
-| shop\_db | Order    | customer\_id |          | uuid       |                       | 1         | 1         |            | Foreign key column to Customer     |
-| shop\_db | Order    |              | customer |            | Customer.customer\_id | 1         | 1         | fk         | Relation via dot-notation          |
+| schema    | entity | attribute | relation | data\_type | target      | min | max | constraint | description          |
+| --------- | ------ | --------- | -------- | ---------- | ----------- | --- | --- | ---------- | -------------------- |
+| bookstore | Book   | id        |          | uuid       |             | 1   | 1   | pk         | Unique identifier    |
+| bookstore | Book   | title     |          | string     |             | 1   | 1   |            | Book title           |
+| bookstore | Book   | price     |          | decimal    |             | 1   | 1   |            | Retail price         |
+| bookstore | Book   |           | author   |            | Author      | 1   | \*  |            | Book author(s)       |
+| bookstore | Author | id        |          | uuid       |             | 1   | 1   | pk         | Unique identifier    |
+| bookstore | Author | name      |          | string     |             | 1   | 1   |            | Author’s name        |
+| bookstore | Author |           | books    |            | Book.author | 0   | \*  |            | Books by this author |
 
-Note: In each row, exactly one of attribute & data_type or relation & target is populated.
+**Note:** In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
 
----
 
 ### Schema Types
 
