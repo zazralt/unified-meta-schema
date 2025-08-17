@@ -410,6 +410,23 @@ library:
 
 ---
 
+### Schema Import
+At the schema level, use @import to bring in a schema from another file or URI.
+```yaml
+{schema}:
+  "@import": "./path/to/schema.yaml"
+```
+
+**Example:**
+```yaml
+bookstore:
+  "@import": ./schemas/library.yaml
+```
+
+**Note:** All schemas defined in the same YAML file/document are automatically in scope. No @import is required for one schema to reference another in the same file.
+
+---
+
 ### Prefixes
 
 Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an identifier is expected.
