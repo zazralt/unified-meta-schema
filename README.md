@@ -56,11 +56,11 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 ````
 **Note:**
 * Use 2 spaces per indentation level (no tabs).
-* Always add a space after colons (`key: value`, not `key:value`).
+* Add always a space after colons (`key: value`, not `key:value`).
 * Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
-* The symbols `->` (forward) and `<-` (backward) indicate relation direction.
+* Inidicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
 
 ### Core Elements
 
