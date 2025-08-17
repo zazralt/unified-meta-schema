@@ -139,6 +139,14 @@ UMS supports multiple naming conventions to accommodate different programming an
 * Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
 * Examples: `@id`, `@name`, `@description`, `@version`, `@prefixes`, `@creator`, `@creation_date`, `@update_date`
 
+**Syntax:**
+```yaml
+{schema}:
+  "{@metadata}": "..."
+  {entity}:
+    "{@metadata}": "..."
+````
+
 ### Data Types
 
 * Always specify data types for attributes.
