@@ -41,7 +41,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {data_type}
-       └── {relation}:  -> {target}
+       └── {relation}:  {target}
 ```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document.
 
@@ -52,7 +52,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
   {entity}:
     "{@metadata}": "..."
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
-    {relation}:  -> {target}  [{min},{max}] ({constraint}) | {description}
+    {relation}:  {target}    [{min},{max}] ({constraint}) | {description}
 ````
 **Note:**
 * Use 2 spaces per indentation level (no tabs).
@@ -85,7 +85,13 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
 | **{description}** | Human-readable description              | `|` (pipe)         | 4     | No                    | `| Book title`          |
 
-Parse Logic:
+**Syntax:**
+```yaml
+    {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
+    {relation}:  {target}    [{min},{max}] ({constraint}) | {description}
+```
+
+**Parse Logic:**
 1. Strip **description**: split on the first unescaped `|`.
 2. Strip **constraint**: remove the rightmost balanced `( … )` (outside quotes/brackets).
 3. Strip **cardinality**: remove the rightmost balanced `[min,max]`.
