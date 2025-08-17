@@ -151,7 +151,26 @@ UMS supports multiple naming conventions to accommodate different programming an
 
 * Always specify data types for attributes.
 
-#### Enums
+#### Common Data Types
+
+| Category         | UMS Type             | Typical Target Mappings                                                                          | Notes                        |
+| ---------------- | -------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------- |
+| **Identifiers**  | `uuid`               | SQL: `UUID`; JSON: `string` (format=uuid); GraphQL: `ID`; RDF: `xsd:string`                      | Globally unique identifier   |
+| **Strings**      | `string`             | SQL: `varchar`; JSON: `string`; GraphQL: `String`; RDF: `xsd:string`                             | General text value           |
+|                  | `text`               | SQL: `text`; JSON: `string`; GraphQL: `String`; RDF: `xsd:string`                                | Long or unbounded string     |
+| **Numbers**      | `int` / `integer`    | SQL: `int`; JSON: `integer`; GraphQL: `Int`; RDF: `xsd:integer`                                  | Whole numbers                |
+|                  | `decimal`            | SQL: `decimal`; JSON: `number`; GraphQL: custom `Decimal`; RDF: `xsd:decimal`                    | Precision-controlled numbers |
+|                  | `float`              | SQL: `float`; JSON: `number`; GraphQL: `Float`; RDF: `xsd:float`                                 | Approximate numeric          |
+| **Booleans**     | `bool` / `boolean`   | SQL: `boolean`; JSON: `boolean`; GraphQL: `Boolean`; RDF: `xsd:boolean`                          | True/false                   |
+| **Dates/Times**  | `date`               | SQL: `date`; JSON: `string` (format=date); GraphQL: custom scalar; RDF: `xsd:date`               | Calendar date                |
+|                  | `time`               | SQL: `time`; JSON: `string` (format=time); GraphQL: custom scalar; RDF: `xsd:time`               | Time of day                  |
+|                  | `datetime`           | SQL: `timestamp`; JSON: `string` (format=date-time); GraphQL: custom scalar; RDF: `xsd:dateTime` | Combined date and time       |
+| **Binary**       | `binary`             | SQL: `bytea`/`blob`; JSON: base64 string; GraphQL: custom scalar; RDF: `xsd:base64Binary`        | Raw binary data              |
+| **Collections**  | `array(type)`        | SQL: array; JSON: array; GraphQL: `[Type]`; RDF: repeated property                               | Homogeneous collections      |
+| **Enumerations** | `enum(v1,v2,…)`      | SQL: enum; JSON: string with enum; GraphQL: `enum`; RDF: controlled vocabulary                   | Explicit value set           |
+| **Mixed**        | `union(type1,type2)` | JSON: `oneOf`; GraphQL: union; RDF: multiple ranges                                              | Multiple acceptable types    |
+
+#### Enumerations
 Attributes MAY declare an enumerated type using the enum(...) constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
 ```yaml
     {attribute}: enum(value1,value2,…) [min,max] (constraint) | description
@@ -160,7 +179,7 @@ Attributes MAY declare an enumerated type using the enum(...) constructor, where
 #### Multiple Types
 Attributes MAY allow a union of multiple data types (comma-separated, no spaces):
 ```yaml
-    {attribute}: {data_type1},{data_type1}
+    {attribute}: union({data_type1},{data_type1})  [min,max] (constraint) | description
 ```
 
 ### Target Syntax
