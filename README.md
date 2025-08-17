@@ -177,7 +177,7 @@ Reference to the entire entity:
     {relation}: -> {entity}
 ```
 
-#### Untion Relation
+#### Union Relation
 
 A union relation allows a single relation to target multiple entities. Entities (and optionally their attributes) MUST be listed comma-separated without spaces.
 
