@@ -91,7 +91,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | **{target}**    | The target entity for relations           | `->` or `<-`       | 1     | Yes (for relations)   | `-> Author`             |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
-| **{description}** | Human-readable description              | `|` (pipe)         | 4     | No                    | `| Book title`          |
+| **{description}** | Human-readable description              | `\|` (pipe)        | 4     | No                    | `\| Book title`          |
 
 **Syntax:**
 ```yaml
