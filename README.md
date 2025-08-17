@@ -63,6 +63,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Inidicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
 
 ### Core Elements
+The following YAML keys define the accepted schema elements in UMS:
 
 | Element | Description | Required | Example |
 |---------|-------------|:--------:|---------|
@@ -73,7 +74,9 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 
 *\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
-### Details
+### Definition
+The YAML value of each `{attribute}` and `{relation}` MUST specify its definition.
+
 | Element | Description | Required | Example |
 |---------|-------------|:--------:|---------|
 | **{data_type}** | The type for attributes | For attributes | `string`, `uuid`, `decimal` |
