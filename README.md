@@ -62,7 +62,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
 * Inidicate (directed) relations and with the symbols `->` (forward) and `<-` (backward).
 
-### Core Elements
+### Schema Elements
 The following YAML keys define the accepted schema elements in UMS:
 
 | Element | Description | Required | Example |
@@ -75,15 +75,15 @@ The following YAML keys define the accepted schema elements in UMS:
 *\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
 ### Definition
-The YAML value of each `{attribute}` and `{relation}` MUST specify its definition.
+Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
-| Element | Description | Required | Example |
-|---------|-------------|:--------:|---------|
-| **{data_type}** | The type for attributes | For attributes | `string`, `uuid`, `decimal` |
-| **{target}** | The target entity for relations | For relations | `Author`, `Book.author` |
-| **{min}/{max}** | Minimum and maximum cardinality | No | `[1,1]`, `[1,*]`, `[0,*]` |
-| **{constraint}** | Labels or key-value pairs in parentheses | No | `(pk)` |
-| **{description}** | Human-readable description after pipe | No | `\| Book title` |
+| Element         | Description                               | Syntax / Separator | Required              | Example                 |
+|-----------------|-------------------------------------------|--------------------|:---------------------:|-------------------------|
+| **{data_type}** | The type for attributes                   | *after colon*      | Yes (for attributes)  | `title: string`         |
+| **{target}**    | The target entity for relations           | `->` or `<-`       | Yes (for relations)   | `author: -> Author`     |
+| **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | No                    | `[1,1]`, `[0,*]`        |
+| **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | No                    | `(pk)`                  |
+| **{description}** | Human-readable description              | `|` (pipe)         | No                    | `| Book title`          |
 
 ### Example
 
