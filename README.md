@@ -241,11 +241,15 @@ Each relation MUST specify a direction symbol:
 * `->` for forward relations
 * `<-` for reverse (inverse) relations
 
+---
+
 #### Dot-Notation
 Dot-notation is used to qualify names across different scopes:
 
 * **`{entity}.{attribute}`** — reference within a schema, scoped to an entity
 * **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
+
+---
 
 #### Entity Relation
 
@@ -254,6 +258,8 @@ Reference to the entire entity:
 ```yaml
     {relation}: -> {entity}
 ```
+
+---
 
 #### Union Relation
 
@@ -264,6 +270,7 @@ A union relation allows a single relation to target multiple entities. Entities 
     {relation}: -> {entity1}.{attr1},{entity2}.{attr1}
 ```
 
+---
 
 #### Qualified Relation
 
@@ -273,6 +280,8 @@ Reference to a specific attribute of the entity (typically a primary/foreign key
     {relation}: {attr} -> {entity}.{attr}
 ```
 
+---
+
 #### Composite Relation
 
 Reference to multiple attributes in the relation:
@@ -280,6 +289,8 @@ Reference to multiple attributes in the relation:
 ```yaml
     {relation}: {attr1},{attr2} -> {entity}.{attr1},{attr2}
 ```
+
+---
 
 **Note:**
 * Composite relations list multiple entity attributes separated by commas (no spaces).  
@@ -292,6 +303,7 @@ Fully qualified reference across schema, entity, and attribute:
     {relation}: {attr} -> {schema}.{entity}.{attr}
 ```
 
+---
 
 #### Composite External Relation
 
@@ -300,6 +312,8 @@ Fully qualified reference with multiple attributes:
 ```yaml
     {relation}: {attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}
 ```
+
+---
 
 ### Cardinality
 
