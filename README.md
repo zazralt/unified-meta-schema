@@ -77,7 +77,7 @@ The following YAML keys define the accepted schema elements in UMS:
 ### Definition
 Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies its definition.
 
-| Element         | Description                               | Syntax / Separator | Required              | Example                 |
+| Element         | Description                               | Notation           | Required              | Example                 |
 |-----------------|-------------------------------------------|--------------------|:---------------------:|-------------------------|
 | **{data_type}** | The type for attributes                   | *after colon*      | Yes (for attributes)  | `title: string`         |
 | **{target}**    | The target entity for relations           | `->` or `<-`       | Yes (for relations)   | `author: -> Author`     |
