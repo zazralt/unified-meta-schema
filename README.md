@@ -183,7 +183,6 @@ Reference to multiple attributes in the relation:
 
 **Note:**
 * Composite relations list multiple entity attributes separated by commas (no spaces).  
-* Multiple entities MAY also be listed, separated by commas: `{entity1},{entity2}`.  
 
 #### External Relation
 
