@@ -133,15 +133,18 @@ UMS supports multiple naming conventions to accommodate different programming an
 ### Data Types
 
 * Always specify data types for attributes.
-* `enum` list comma separated values in the description
 
-Great — here’s the refined section with the **normative rule** at the top and the cleaned-up categories underneath:
+#### Enums
+Attributes MAY declare an enumerated type using the enum(...) constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
+```yaml
+    {attribute}: enum(value1,value2,…) [min,max] (constraint) | description
+```
 
-### Dot-Notation
-Dot-notation is used to qualify names across different scopes:
-
-* **`{entity}.{attribute}`** — reference within a schema, scoped to an entity
-* **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
+#### Multiple Types
+Attributes MAY allow a union of multiple data types (comma-separated, no spaces):
+```yaml
+    {attribute}: data_type1},{data_type1}
+```
 
 ### Target Syntax
 
@@ -150,6 +153,12 @@ Each relation MUST specify a direction symbol:
 
 * `->` for forward relations
 * `<-` for reverse (inverse) relations
+
+#### Dot-Notation
+Dot-notation is used to qualify names across different scopes:
+
+* **`{entity}.{attribute}`** — reference within a schema, scoped to an entity
+* **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
 
 #### Entity Relation
 
