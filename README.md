@@ -157,8 +157,13 @@ Reference to the entire entity:
 
 ```yaml
     {relation}: -> {entity}
-    {relation}: <- {entity}
 ```
+
+Union of multiple entities (comma-separated, no spaces):
+```yaml
+    {relation}: -> {entity1},{entity2}
+```
+
 
 #### Qualified Relation
 
