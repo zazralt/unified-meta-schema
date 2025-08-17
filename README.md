@@ -90,15 +90,12 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
     {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
     {relation}:  {target}    [{min},{max}] ({constraint}) | {description}
 ```
+**Note:**
+* Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
+* Write YAML values without quotes for readability, and add quotes when needed.
 
-**Parse Logic:**
-```
-definition := ( data_type | target ) cardinality? constraint? description?
-```
-1. Strip **description**: split on the first unescaped `|`.
-2. Strip **constraint**: remove the rightmost balanced `( … )` (outside quotes/brackets).
-3. Strip **cardinality**: remove the rightmost balanced `[min,max]`.
-4. What remains is the **head**: either a `data_type` (attribute) or an **arrow + target** (relation).
+**Parsing Logic:**
+A YAML value MUST be parsed from **right to left**: first strip the `| description` (if present), then the `(constraint)`, then the `[min,max]`. The remaining head is interpreted as `{data_type}` (for attributes) or `{target}` (for relations). Syntactically, the order of elements is left-to-right. Parsing SHOULD proceed right-to-left for deterministic extraction.
 
 ### Example
 
@@ -110,7 +107,7 @@ bookstore:
     id:        uuid    [1,1] (pk)       | Unique identifier
     title:     string  [1,1]            | Book title
     price:     decimal [1,1]            | Retail price
-    author:    -> Author [1,*]          | Book author(s)
+    author:    id -> Author.id [1,*]    | Book author(s)
     
   Author:
     id:        uuid    [1,1] (pk)       | Unique identifier
@@ -124,6 +121,7 @@ UMS supports multiple naming conventions to accommodate different programming an
 * **PascalCase**: Capitalize first letter of each word, no separators
 * **camelCase**: First word lowercase, capitalize subsequent words
 * **snake_case**: All lowercase with underscores between words
+* **kebab-case**: All lowercase with hyphens between words
 
 **Note:** Be consistent within a single schema for better readability.
 
@@ -137,28 +135,56 @@ UMS supports multiple naming conventions to accommodate different programming an
 * Always specify data types for attributes.
 * `enum` list comma separated values in the description
 
-### Target Syntax Dot-Notation
-* Each relation must have one direction symbol `->` for forward and `<-` for reverse in the `{target}`.
+Great — here’s the refined section with the **normative rule** at the top and the cleaned-up categories underneath:
 
-**Entity Relation:**
+### Dot-Notation
+Dot-notation is used to qualify names across different scopes:
+
+* **`{schema}.{entity}.{attribute}`** — fully qualified reference across schema, entity, and attribute
+* **`{entity}.{attribute}`** — reference within a schema, scoped to an entity
+
+### Target Syntax
+
+The `{target}` MUST resolve unambiguously to an entity or one of its attributes using dot-notation.
+Each relation MUST specify a direction symbol:
+
+* `->` for forward relations
+* `<-` for reverse (inverse) relations
+
+#### Entity Relation
+
+Reference to the entire entity:
+
 * `-> {entity}`
 * `<- {entity}`
 
-**Single Relation:**
+#### Qualified Relation
+
+Reference to a specific attribute of the entity (typically a primary/foreign key):
+
 * `{attr} -> {entity}.{attr}`
 * `{attr} <- {entity}.{attr}`
 
-**Composite Relation:**
-* `({attr1},{attr2}) -> {entity}.({attr1},{attr2}`)
-* `({attr1},{attr2}) <- {entity}.({attr1},{attr2}`)
+#### Composite Relation
 
-**External Relation:**
+Reference to multiple attributes in the relation:
+
+* `{attr1},{attr2} -> {entity}.{attr1},{attr2}`
+* `{attr1},{attr2} <- {entity}.{attr1},{attr2}`
+
+#### External Relation
+
+Fully qualified reference across schema, entity, and attribute:
+
 * `{attr} -> {schema}.{entity}.{attr}`
 * `{attr} <- {schema}.{entity}.{attr}`
 
-**Composite External Relation:**
-* `({attr1},{attr2}) -> {schema}.{entity}.({attr1},{attr2}`)
-* `({attr1},{attr2}) <- {schema}.{entity}.({attr1},{attr2}`)
+#### Composite External Relation
+
+Fully qualified reference with multiple attributes:
+
+* `{attr1},{attr2} -> {schema}.{entity}.{attr1},{attr2}`
+* `{attr1},{attr2} <- {schema}.{entity}.{attr1},{attr2}`
 
 ### Cardinality
 
