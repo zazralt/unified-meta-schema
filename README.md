@@ -354,6 +354,7 @@ Cardinality specifies the minimum and maximum number of values allowed.
 
 * Cardinality is written as `[{min},{max}]` (whitespace allowed).
 * `{min}` is the minimum number of values; `{max}` is the maximum (or `*` for unbounded).
+* Do not shorten to a single value (e.g., `[1]` is invalid; use `[1,1]` instead).
 * If cardinality is omitted, the default is `[0,*]` (optional, unbounded).
 * Keyword shorthands MAY be used as aliases for common numeric patterns.
 
