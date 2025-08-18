@@ -184,7 +184,7 @@ UMS supports multiple naming conventions to accommodate different programming an
 
 ### Data Types
 
-* Always specify data types for attributes.
+* Data types MUST always be specified for attributes.
 
 #### Common Data Types
 
@@ -273,7 +273,7 @@ The `{target}` MUST resolve unambiguously to an entity or one of its attributes 
 Each relation MUST specify a direction symbol:
 
 * `->` for forward relations
-* `<-` for reverse (inverse) relations
+* `<-` for backward relations
 
 ---
 
