@@ -14,18 +14,21 @@ By standardizing core modeling concepts — `{schema}`, `{entity}`, `{attribute}
 
 Define a schema in a single YAML file by declaring entities, attributes, and relations. Each attribute specifies a **data type**; each relation points to a **target entity**. Cardinality and constraints are optional but recommended.
 
-**Minimal Example:**
+**Example:**
 
 ```yaml
 bookstore:
+  "@title": "Book Shop"
+  
   Book:
-    id:     uuid; [1,1]; (pk); Unique identifier
-    title:  string; [1,1]; Book title
-    author: -> Author; [1,*]; Book author(s)
-
+    id:        uuid;      [1,1]; (pk);      Unique identifier
+    title:     string;    [1,1];            Book title
+    price:     decimal;   [1,1];            Retail price
+    author:    -> Author; [1,*];            Book author(s)
+    
   Author:
-    id:    uuid; [1,1]; (pk); Unique identifier
-    name:  string; [1,1]; Author's name
+    id:        uuid;      [1,1]; (pk);      Unique identifier
+    name:      string;    [1,1];            Author's name
 ```
 
 **Steps to create a schema:**
@@ -52,7 +55,7 @@ This specification:
 - Defines a concise YAML structure for expressing entities, their attributes, and relations
 - Provides explicit representation of datatypes and cardinality constraints
 - Supports metadata annotations at schema and entity levels
-- Enables bidirectional relation mapping with rich target expression syntax
+- Enables relation mapping with rich target expression syntax
 - Facilitates transformation between different schema languages and paradigms
 - Serves as both a documentation format and an executable specification
 
@@ -98,7 +101,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 ````
 **Note:**
 * Use 2 spaces per indentation level (no tabs).
-* Add always a space after colons (`key: value`, not `key:value`).
+* Always add a space after colons (`key: value`, not `key:value`).
 * Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
@@ -165,7 +168,7 @@ Parsers MUST process values **right-to-left** over semicolon-delimited segments 
 Only the `{data_type}` or `{target}` element is REQUIRED; other segments are OPTIONAL and MAY be omitted with their preceding semicolons.
 
 **Note:**
-* `{description}` CAN NOT be enclosed with `[...]` or `(…)`.
+* `{description}` CANNOT begin `[` or `(`, also not be enclosed with `[...]` or `(…)`.
 * Parsers must map keywords to numeric pairs before validation (e.g., `[required*]` → `[1,*]`).
 
 ---
@@ -335,6 +338,8 @@ A union relation allows a single relation to target multiple entities. Entities 
     {relation}: -> {entity1}.{attr1},{entity2}.{attr1}
 ```
 
+**Note:** All referenced targets in a union MUST be compatible.
+
 ---
 
 #### Qualified Relation
@@ -345,7 +350,7 @@ Reference to a specific attribute of the entity (typically a primary/foreign key
     {relation}: {attr} -> {entity}.{attr}
 ```
 
-**Note:** The identifiers before `->` are _local attributes_ used for the join; they do not create new attributes - they must already exist as `{attribute}` entries with `(fk)` constraint.
+**Note:** Identifiers before `->` are local attributes used for the join; they MUST already exist as `{attribute}` entries. Marking them with `(fk)` is RECOMMENDED when modeling relational databases.
 
 ---
 
@@ -359,7 +364,9 @@ Reference to multiple attributes in the relation:
 
 ---
 
-**Note:** Composite relations list multiple entity attributes separated by commas (no spaces).  
+**Note:**
+* Composite relations list multiple entity attributes separated by commas (no spaces).
+* `{entity}.{attr1},{attr2}` is the same as `{entity}.{attr1},{entity}.{attr2}`.
 
 #### External Relation
 
@@ -420,7 +427,7 @@ Constraints specify additional rules that refine the values of attributes or rel
 | `(pattern=…)`    | Regex or format pattern constraint         | `code: string [1,1] (pattern=^[A-Z]{2}\d{4}$)` |
 | `(check=…)`      | General condition expression               | `age: int [0,1] (check=>=0)`                   |
 | `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int [0,1] (min=1,max=100)`               |
-| `(precision=…,scale=…)` | Numeric precision/scale for decimals/floats | `price: decimal [1,1] (precision=10,scale=2)`  |
+| `(precision=…,scale=…)` | Numeric precision/scale for decimals | `price: decimal [1,1] (precision=10,scale=2)`  |
 
 **Note:** Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
 
@@ -453,8 +460,8 @@ library:
 *Here `library` and `bookstore` are separate schemas, but relations can cross-reference using dot-notation (`bookstore.Book`).*
 
 **Note:**
-* UMS MAY also use YAML multi-document files with ---. Each document contains one or more schemas; processors SHOULD treat all documents in the file as a single model during resolution.
-* Use one document with multiple schemas for tightly coupled models; use  --- to separate documents for modular/versioned distribution.
+* UMS MAY also use YAML multi-document files with `---`. Each document contains one or more schemas; processors SHOULD treat all documents in the file as a single model during resolution.
+* Use one document with multiple schemas for tightly coupled models; use `---` to separate documents for modular/versioned distribution.
 
 ---
 
