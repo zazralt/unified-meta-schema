@@ -45,8 +45,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
   ├── {@metadata}
   └── {entity}
        ├── {@metadata}
-       ├── {attribute}: ...
-       └── {relation}:  ...
+       ├── {attribute}: {definition}
+       └── {relation}:  {definition}
 ```
 **Note:** Curly brackets `{variable}` are used to denote template variables throughout the document.
 
