@@ -110,7 +110,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
     {relation}:  {target};    [{min},{max}]; ({constraint}); {description}
 ```
 **Note:**
-* Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `name: string; Name of resource`.
+* Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
 * `{cardinality}`, `{constraint}` are inferred by their notation.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
