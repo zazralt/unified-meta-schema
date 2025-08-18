@@ -58,8 +58,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
   "{@metadata}": "..."
   {entity}:
     "{@metadata}": "..."
-    {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
-    {relation}:  {target}    [{min},{max}] ({constraint}) | {description}
+    {attribute}: {data_type}; [{min},{max}]; ({constraint}); {description}
+    {relation}:  {target};    [{min},{max}]; ({constraint}); {description}
 ````
 **Note:**
 * Use 2 spaces per indentation level (no tabs).
@@ -102,14 +102,16 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | **{target}**    | The target entity for relations           | `->` or `<-`       | 1     | Yes (for relations)   | `-> Author`             |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
-| **{description}** | Human-readable description              | `\|` (pipe)        | 4     | No                    | `\| Book title`         |
+| **{description}** | Human-readable description              | description        | 4     | No                    | `\| Book title`         |
 
 **Syntax:**
 ```yaml
-    {attribute}: {data_type} [{min},{max}] ({constraint}) | {description}
-    {relation}:  {target}    [{min},{max}] ({constraint}) | {description}
+    {attribute}: {data_type}; [{min},{max}]; ({constraint}); {description}
+    {relation}:  {target};    [{min},{max}]; ({constraint}); {description}
 ```
 **Note:**
+* Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `name: string; Name of resource`.
+* `{cardinality}`, `{constraint}` are inferred by their notation.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
 
