@@ -452,13 +452,16 @@ Constraints specify additional rules that refine the values of attributes or rel
 | `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int; [0,1]; (min=1,max=100)`               |
 | `(precision=…,scale=…)` | Numeric precision/scale for decimals | `price: decimal; [1,1]; (precision=10,scale=2)`  |
 
-**Note:** Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
+**Note:**
+* Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
+* If more than one attribute in an entity is marked `(pk)`, they form a single composite primary key in the order of appearance.
 
 ----
 
 ### Description
 
 * Optionally add a human-readable description as the final semicolon-delimited segment.
+* Descriptions MUST NOT contain `;`.
 
 ---
 
