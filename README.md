@@ -80,7 +80,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 ### Structure
 ```
 {schema}
-  ├── {@metadata}
+  ├── |{@metadata}
   └── {entity}
        ├── {@metadata}
        ├── {attribute}: {definition}
@@ -94,6 +94,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 ```yaml
 {schema}:
   "{@metadata}": "..."
+
   {entity}:
     "{@metadata}": "..."
     {attribute}: {data_type}; [{min},{max}]; ({constraint}); {description}
@@ -107,6 +108,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
 * Indicate relations with the symbols `->`.
+* Optionally add empty rows between `{entity}` for improved readability.
 
 ---
 
@@ -188,6 +190,7 @@ UMS supports multiple naming conventions to accommodate different programming an
 
 ### Metadata
 * Optionally declare metadata at the `{schema}` or `{entity}` level using quoted `@`-prefixed keys (e.g., `"@id"` or `"@title"`).
+* Metadata keys starting with `@` MUST be quoted.
 * Metadata values can be single or nested values (e.g.,  `"@id": "123"` or `"@prefix": {...}`).
 * Examples: `@id`, `@name`, `@description`, `@version`, `@prefix`, `@creator`, `@creation_date`, `@update_date`
 
@@ -321,7 +324,7 @@ A union relation allows a single relation to target multiple entities. Entities 
     {relation}: -> {entity1}.{attr1},{entity2}.{attr1}
 ```
 
-**Note:** All referenced targets in a union MUST be role-compatible and type-compatible..
+**Note:** All referenced targets in a union MUST be role-compatible and type-compatible.
 
 ---
 
@@ -392,7 +395,7 @@ Cardinality specifies the minimum and maximum number of values allowed.
 | `[1,*]` | one or more     | `[required*]`, `[mandatory*]` |
 | `[n,m]` | between n and m | *(no shorthand)*              |
 
-Here’s a corrected, concise version.
+---
 
 #### One-to-Many Relations
 
@@ -409,6 +412,8 @@ B:
 ```
 
 **Note:** Do not model one-to-many by multiple scalar FKs or arrays on `A`; the FK lives on `B`.
+
+---
 
 #### Many-to-Many Relations
 
@@ -435,15 +440,15 @@ Constraints specify additional rules that refine the values of attributes or rel
 
 | Constraint       | Meaning                                    | Example                                        |
 | ---------------- | ------------------------------------------ | ---------------------------------------------- |
-| `(pk)`           | Primary key (implies required + unique)    | `id: uuid [1,1] (pk)`                          |
-| `(fk)`           | Foreign key / reference to another entity  | `author_id: uuid [1,1] (fk)`                   |
-| `(unique)`       | Value must be distinct across all entities | `email: string [1,1] (unique)`                 |
-| `(index)`        | Marks attribute for indexing               | `id: uuid [1,1] (index)`                       |
-| `(default=…)`    | Default value if none provided             | `created: date [1,1] (default=now())`          |
-| `(pattern=…)`    | Regex or format pattern constraint         | `code: string [1,1] (pattern=^[A-Z]{2}\d{4}$)` |
-| `(check=…)`      | General condition expression               | `age: int [0,1] (check=>=0)`                   |
-| `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int [0,1] (min=1,max=100)`               |
-| `(precision=…,scale=…)` | Numeric precision/scale for decimals | `price: decimal [1,1] (precision=10,scale=2)`  |
+| `(pk)`           | Primary key (implies required + unique)    | `id: uuid; [1,1]; (pk)`                          |
+| `(fk)`           | Foreign key / reference to another entity  | `author_id: uuid; [1,1]; (fk)`                   |
+| `(unique)`       | Value must be distinct across all entities | `email: string; [1,1]; (unique)`                 |
+| `(index)`        | Marks attribute for indexing               | `id: uuid; [1,1]; (index)`                       |
+| `(default=…)`    | Default value if none provided             | `created: date; [1,1]; (default=now())`          |
+| `(pattern=…)`    | Regex or format pattern constraint         | `code: string; [1,1]; (pattern=^[A-Z]{2}\d{4}$)` |
+| `(check=…)`      | General condition expression               | `age: int; [0,1]; (check=>=0)`                   |
+| `(min=… ,max=…)` | Numeric or length boundaries               | `qty: int; [0,1]; (min=1,max=100)`               |
+| `(precision=…,scale=…)` | Numeric precision/scale for decimals | `price: decimal; [1,1]; (precision=10,scale=2)`  |
 
 **Note:** Nullability MUST be expressed via cardinality (`[1,1]`, `[0,1]`, etc.), not as a constraint (e.g., `(not null)`).
 
