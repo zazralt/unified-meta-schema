@@ -116,7 +116,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 ```
 **Note:**
 * Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
-* `{cardinality}`, `{constraint}` are inferred by their notation.
+* The values of `{cardinality}` and `{constraint}` are inferred from their notational forms, i.e. `[]` and `()`.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
 
@@ -124,7 +124,14 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 
 #### Parsing Logic
 
-A YAML value MUST be parsed from **right to left**: first strip the `| description` (if present), then the `(constraint)`, then the `[min,max]`. The remaining head is interpreted as `{data_type}` (for attributes) or `{target}` (for relations). Syntactically, the order of elements is left-to-right. Parsing SHOULD proceed right-to-left for deterministic extraction.
+Parsers MUST process values **right-to-left** over semicolon-delimited segments (ignoring whitespace):
+
+1. Rightmost segment → `{description}` if not `[...]` or `(…)`.
+2. Next segment → `{constraint}` if `(…)`.
+3. Next segment → `{min},{max}` if `[...]`.
+4. Remaining leftmost segment → (`{data_type}` or `{target}`).
+
+Only the `{data_type}` or `{target}` element is REQUIRED; other segments are OPTIONAL and MAY be omitted with their preceding semicolons.
 
 ---
 
@@ -207,13 +214,13 @@ UMS supports multiple naming conventions to accommodate different programming an
 Attributes MAY declare an array of a given data type using the `array(...)` constructor:
 
 ```yaml
-    {attribute}: array({data_type}) [min,max] (constraint) | description
+    {attribute}: array({data_type}); [{min},{max}]; ({constraint}); {description}
 ```
 
 **Example:**
 
 ```yaml
-    tags: array(string) [0,*] | Tags assigned to the item
+    tags: array(string); [0,*]; Tags assigned to the item
 ```
 
 ---
@@ -223,13 +230,13 @@ Attributes MAY declare an array of a given data type using the `array(...)` cons
 Attributes MAY declare an enumerated type using the `enum(...)` constructor, where the allowed values are listed inside parentheses (comma-separated, no spaces):
 
 ```yaml
-    {attribute}: enum(value1,value2,…) [min,max] (constraint) | description
+    {attribute}: enum(value1,value2,…); [{min},{max}]; ({constraint}); {description}
 ```
 
 **Example:**
 
 ```yaml
-    status: enum(active,inactive,pending) [1,1] | Current status
+    status: enum(active,inactive,pending); [1,1]; Current status
 ```
 
 ---
@@ -239,13 +246,13 @@ Attributes MAY declare an enumerated type using the `enum(...)` constructor, whe
 Attributes MAY allow a union of multiple data types using the `union(...)` constructor:
 
 ```yaml
-    {attribute}: union({data_type1},{data_type2},…) [min,max] (constraint) | description
+    {attribute}: union({data_type1},{data_type2},…); [{min},{max}]; ({constraint}); {description}
 ```
 
 **Example:**
 
 ```yaml
-    identifier: union(uuid,string) [1,1] | UUID or legacy string identifier
+    identifier: union(uuid,string); [1,1]; UUID or legacy string identifier
 ```
 
 **Note:**
@@ -254,7 +261,7 @@ Attributes MAY allow a union of multiple data types using the `union(...)` const
 * Nesting is allowed, e.g.:
 
   ```yaml
-      value: union(array(string),enum(red,blue)) [0,*] | Either a list of strings or a color enum
+      value: union(array(string),enum(red,blue)); [0,*]; Either a list of strings or a color enum
   ```
 * Validators SHOULD resolve each option independently and enforce the specified cardinality and constraints.
 
@@ -387,7 +394,7 @@ Constraints specify additional rules that refine the values of attributes or rel
 
 ### Description
 
-* Optionally add human-readable descriptions after `|`.
+* Optionally add a human-readable description as the final semicolon-delimited segment.
 
 ---
 
@@ -400,14 +407,14 @@ Each schema is an independent namespace, and entities inside are scoped by that 
 ```yaml
 bookstore:
   Book:
-    id: uuid [1,1] (pk)
-    title: string [1,1]
+    id: uuid; [1,1]; (pk)
+    title: string; [1,1]
 
 library:
   Library:
-    id: uuid [1,1] (pk)
-    name: string [1,1]
-    books: -> bookstore.Book [0,*]
+    id: uuid; [1,1]; (pk)
+    name: string; [1,1]
+    books: -> bookstore.Book; [0,*]
 ```
 *Here `library` and `bookstore` are separate schemas, but relations can cross-reference using dot-notation (`bookstore.Book`).*
 
@@ -467,8 +474,8 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
     xsd: "http://www.w3.org/2001/XMLSchema#"
   
   "ex:Customer":
-    customerId:  xsd:string [1,1] (pk) | Customer identifier
-    orders:      -> ex:Order [0,*]     | All orders of this customer
+    customerId:  xsd:string; [1,1]; (pk); Customer identifier
+    orders:      -> ex:Order; [0,*]; All orders of this customer
 ```
 ---
 
@@ -477,19 +484,21 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 ```json
 {
   "bookstore": {
+    "@title": "Book Shop",
     "Book": {
-      "id": "uuid [1,1] (pk) | Unique identifier",
-      "title": "string [1,1] | Book title",
-      "price": "decimal [1,1] | Retail price",
-      "author": "-> Author [1,*] | Book author(s)"
+      "id": "uuid; [1,1]; (pk); Unique identifier",
+      "title": "string; [1,1]; Book title",
+      "price": "decimal; [1,1]; Retail price",
+      "author": "-> Author; [1,*]; Book author(s)"
     },
     "Author": {
-      "id": "uuid [1,1] (pk) | Unique identifier",
-      "name": "string [1,1] | Author's name",
-      "books": "<- Book.author [0,*] | Books by this author"
+      "id": "uuid; [1,1]; (pk); Unique identifier",
+      "name": "string; [1,1]; Author's name",
+      "books": "<- Book.author; [0,*]; Books by this author"
     }
   }
 }
+
 ```
 
 **Note:** In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
