@@ -173,25 +173,6 @@ Only the `{data_type}` or `{target}` element is REQUIRED; other segments are OPT
 
 ---
 
-### Example
-
-```yaml
-bookstore:
-  "@title": "Book Shop"
-  
-  Book:
-    id:        uuid;      [1,1]; (pk);      Unique identifier
-    title:     string;    [1,1];            Book title
-    price:     decimal;   [1,1];            Retail price
-    author:    -> Author; [1,*];            Book author(s)
-    
-  Author:
-    id:        uuid;      [1,1]; (pk);      Unique identifier
-    name:      string;    [1,1];            Author's name
-```
-
----
-
 ### Naming Conventions
 UMS supports multiple naming conventions to accommodate different programming and modeling traditions. Choose a consistent style throughout your schema:
 
