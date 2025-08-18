@@ -150,7 +150,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 ```
 **Note:**
 * Elements MUST be separated by semicolons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
-* Default `{cardinality}` is `[0,*]` and rest is empty.
+* If cardinality is omitted, it defaults to `[0,*]`; other segments are considered absent.
 * The values of `{cardinality}` and `{constraint}` are inferred from their notational forms, i.e. `[]` and `()`.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
@@ -321,7 +321,7 @@ A union relation allows a single relation to target multiple entities. Entities 
     {relation}: -> {entity1}.{attr1},{entity2}.{attr1}
 ```
 
-**Note:** All referenced targets in a union MUST be compatible.
+**Note:** All referenced targets in a union MUST be role-compatible and type-compatible..
 
 ---
 
@@ -391,6 +391,38 @@ Cardinality specifies the minimum and maximum number of values allowed.
 | `[0,*]` | zero or more    | `[optional*]`                 |
 | `[1,*]` | one or more     | `[required*]`, `[mandatory*]` |
 | `[n,m]` | between n and m | *(no shorthand)*              |
+
+Here’s a corrected, concise version.
+
+#### One-to-Many Relations
+
+Model **one-to-many** with the foreign key `(fk)` on the many side (`B`).
+
+```yaml
+A:
+  id: uuid; [1,1]; (pk)
+
+B:
+  id: uuid; [1,1]; (pk)
+  a_id: uuid; [1,1]; (fk)
+  a: a_id -> A.id; [1,1]  # each B belongs to exactly one A
+```
+
+**Note:** Do not model one-to-many by multiple scalar FKs or arrays on `A`; the FK lives on `B`.
+
+#### Many-to-Many Relations
+
+Model **many-to-many** via an associative entity (join table) with two foreign keys and a uniqueness guarantee on the pair.
+
+```yaml
+A_B:
+  a_id: uuid; [1,1]; (pk,fk)
+  b_id: uuid; [1,1]; (pk,fk)
+  a: a_id -> A.id; [1,1]
+  b: b_id -> B.id; [1,1]
+```
+
+**Note:** Do not model many-to-many with multiple scalar FKs or array-of-FKs on `A` or `B`.
 
 ----
 
