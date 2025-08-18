@@ -11,7 +11,38 @@ By standardizing core modeling concepts — `{schema}`, `{entity}`, `{attribute}
 ---
 
 ## Quick Start
-...
+
+Define a schema in a single YAML file by declaring entities, attributes, and relations. Each attribute specifies a **data type**; each relation points to a **target entity**. Cardinality and constraints are optional but recommended.
+
+**Minimal Example:**
+
+```yaml
+bookstore:
+  Book:
+    id:     uuid; [1,1]; (pk); Unique identifier
+    title:  string; [1,1]; Book title
+    author: -> Author; [1,*]; Book author(s)
+
+  Author:
+    id:    uuid; [1,1]; (pk); Unique identifier
+    name:  string; [1,1]; Author's name
+    books: <- Book.author; [0,*]; Books by this author
+```
+
+**Steps to create a schema:**
+
+1. **Declare a schema name** at the root (e.g., `bookstore:`).
+2. **Define entities** under the schema (e.g., `Book`, `Author`).
+3. **Add attributes** as key–value pairs with a data type (e.g., `title: string`).
+4. **Add relations** using `->` (forward) or `<-` (backward) to link entities (e.g., `author: -> Author`).
+5. **Optionally specify cardinality, constraints, and descriptions** using semicolon-delimited segments:
+
+   * Cardinality: `[min,max]` (default `[0,*]`)
+   * Constraints: `(pk)`, `(unique)`, `(default=…)`, etc.
+   * Description: free text
+
+**Result:**
+You can now transform, validate, and document this schema in other formats (e.g., JSON Schema, GraphQL, OpenAPI) while preserving semantics.
 
 ---
 
@@ -116,6 +147,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 ```
 **Note:**
 * Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
+* Default `{cardinality}` is `[0,*]` and rest is empty.
 * The values of `{cardinality}` and `{constraint}` are inferred from their notational forms, i.e. `[]` and `()`.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
 * Write YAML values without quotes for readability, and add quotes when needed.
@@ -132,6 +164,10 @@ Parsers MUST process values **right-to-left** over semicolon-delimited segments 
 4. Remaining leftmost segment → (`{data_type}` or `{target}`).
 
 Only the `{data_type}` or `{target}` element is REQUIRED; other segments are OPTIONAL and MAY be omitted with their preceding semicolons.
+
+**Note:**
+* `{description}` CAN NOT be enclosed with `[...]` or `(…)`.
+* Parsers must map keywords to numeric pairs before validation (e.g., `[required*]` → `[1,*]`).
 
 ---
 
@@ -314,6 +350,8 @@ Reference to a specific attribute of the entity (typically a primary/foreign key
     {relation}: {attr} -> {entity}.{attr}
 ```
 
+**Note:** The identifiers before `->` are _local attributes_ used for the join; they do not create new attributes - they must already exist as `{attribute}` entries with `(fk)` constraint.
+
 ---
 
 #### Composite Relation
@@ -421,7 +459,7 @@ library:
 
 **Note:**
 * UMS MAY also use YAML multi-document files with ---. Each document contains one or more schemas; processors SHOULD treat all documents in the file as a single model during resolution.
-* Use one document with multiple schemas for tightly coupled models; use ----separated documents for modular/versioned distribution.
+* Use one document with multiple schemas for tightly coupled models; use  --- to separate documents for modular/versioned distribution.
 
 ---
 
@@ -435,12 +473,13 @@ At the schema level, use @import to bring in a schema from another file or URI.
 **Example:**
 ```yaml
 bookstore:
-  "@import": ./schemas/library.yaml
+  "@import": "./schemas/library.yaml"
 ```
 
 **Note:** 
 * All schemas defined in the same YAML file/document are automatically in scope. No @import is required for one schema to reference another in the same file.
 * Multiple imports can be expressed as a YAML sequence.
+* For portability, we recommend to always quote paths/URIs.
 
 #### Schema Name Collisions
 ...
