@@ -109,6 +109,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
 * Indicate relations with the symbols `->`.
 * Optionally add empty rows between `{entity}` for improved readability.
+* Always preserve the order of the schema elements.
+* The first `{entity}` in a schema corresponds to the root object when generating JSON Schemas.
 
 ---
 
@@ -563,7 +565,9 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 
 ```
 
-**Note:** In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
+**Note:**
+* In JSON representation, all values are quoted strings; this preserves the full UMS value expression.
+* The first `{entity}` listed under a `{schema}` is treated as the root object when converting UMS to JSON Schema.
 
 ---
 
