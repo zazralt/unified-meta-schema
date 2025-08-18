@@ -26,7 +26,6 @@ bookstore:
   Author:
     id:    uuid; [1,1]; (pk); Unique identifier
     name:  string; [1,1]; Author's name
-    books: <- Book.author; [0,*]; Books by this author
 ```
 
 **Steps to create a schema:**
@@ -34,7 +33,7 @@ bookstore:
 1. **Declare a schema name** at the root (e.g., `bookstore:`).
 2. **Define entities** under the schema (e.g., `Book`, `Author`).
 3. **Add attributes** as key–value pairs with a data type (e.g., `title: string`).
-4. **Add relations** using `->` (forward) or `<-` (backward) to link entities (e.g., `author: -> Author`).
+4. **Add relations** using `->` to link entities (e.g., `author: -> Author`).
 5. **Optionally specify cardinality, constraints, and descriptions** using semicolon-delimited segments:
 
    * Cardinality: `[min,max]` (default `[0,*]`)
@@ -103,7 +102,7 @@ This specification defines how UMS uses YAML syntax to represent schema structur
 * Simple identifiers and data types (e.g. `Book`, `title`, `uuid`, `decimal`) can remain unquoted.
 * Quote keys and values containing special characters (`@`, `:`, `/`, `#`, or spaces).
 * Prefer double quotes as the default for safety; use single quotes only for verbatim strings.
-* Indicate (directed) relations with the symbols `->` (forward) and `<-` (backward).
+* Indicate relations with the symbols `->`.
 
 ---
 
@@ -115,7 +114,7 @@ The following YAML keys define the accepted schema elements in UMS:
 | **{schema}** | The schema or namespace | Yes | `bookstore` |
 | **{entity}** | The entity, class, or table name | Yes | `Book`, `Author` |
 | **{attribute}** | A property with a data type | * | `title: string`, `price: decimal` |
-| **{relation}** | A link to another entity | * | `author: -> Author`, `books: <- Book.author` |
+| **{relation}** | A link to another entity | * | `author: -> Author` |
 
 *\* Each entry must be either an attribute with a data type OR a relation with a target, never both.*
 
@@ -135,7 +134,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | Element         | Description                               | Notation           | Order | Required              | Example                 |
 |-----------------|-------------------------------------------|--------------------|-------|-----------------------|-------------------------|
 | **{data_type}** | The type for attributes                   | type name          | 1     | Yes (for attributes)  | `string`                |
-| **{target}**    | The target entity for relations           | `->` or `<-`       | 1     | Yes (for relations)   | `-> Author`             |
+| **{target}**    | The target entity for relations           | `->`               | 1     | Yes (for relations)   | `-> Author`             |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
 | **{description}** | Human-readable description              | description        | 4     | No                    | `\| Book title`         |
@@ -186,7 +185,6 @@ bookstore:
   Author:
     id:        uuid;      [1,1]; (pk);      Unique identifier
     name:      string;    [1,1];            Author's name
-    books:     <- Book.author; [0,*];       Books by this author
 ```
 
 ---
@@ -306,10 +304,7 @@ Attributes MAY allow a union of multiple data types using the `union(...)` const
 ### Target Syntax
 
 The `{target}` MUST resolve unambiguously to an entity or one of its attributes using dot-notation.
-Each relation MUST specify a direction symbol:
-
-* `->` for forward relations
-* `<-` for backward relations
+* Relations are indicated by the symbol `->`.
 
 ---
 
@@ -534,7 +529,6 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
     "Author": {
       "id": "uuid; [1,1]; (pk); Unique identifier",
       "name": "string; [1,1]; Author's name",
-      "books": "<- Book.author; [0,*]; Books by this author"
     }
   }
 }
@@ -555,7 +549,6 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
 | bookstore | Book   |           | author   |            | Author      | 1   | \*  |            | Book author(s)       |
 | bookstore | Author | id        |          | uuid       |             | 1   | 1   | pk         | Unique identifier    |
 | bookstore | Author | name      |          | string     |             | 1   | 1   |            | Author’s name        |
-| bookstore | Author |           | books    |            | Book.author | 0   | \*  |            | Books by this author |
 
 **Note:** In each row, exactly one of *(attribute & data\_type)* or *(relation & target)* is populated.
 
