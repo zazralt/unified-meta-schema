@@ -87,8 +87,8 @@ The following YAML keys define the accepted schema elements in UMS:
 ```yaml
 {schema}:
   {entity}:
-    {attribute}: ...
-    {relation}:  ...
+    {attribute}: {definition}
+    {relation}:  {definition}
 ```
 
 ---
