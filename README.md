@@ -10,6 +10,11 @@ By standardizing core modeling concepts — `{schema}`, `{entity}`, `{attribute}
 
 ---
 
+## Quick Start
+...
+
+---
+
 ## Scope
 
 This specification:
@@ -412,7 +417,7 @@ library:
 
 ---
 
-### Schema Import
+### Schema Imports
 At the schema level, use @import to bring in a schema from another file or URI.
 ```yaml
 {schema}:
@@ -428,6 +433,12 @@ bookstore:
 **Note:** 
 * All schemas defined in the same YAML file/document are automatically in scope. No @import is required for one schema to reference another in the same file.
 * Multiple imports can be expressed as a YAML sequence.
+
+#### Schema Name Collisions
+...
+
+#### Recursive Imports
+...
 
 ---
 
