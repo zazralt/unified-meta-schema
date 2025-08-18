@@ -98,7 +98,8 @@ This specification defines how UMS uses YAML syntax to represent schema structur
     "{@metadata}": "..."
     {attribute}: {data_type}; [{min},{max}]; ({constraint}); {description}
     {relation}:  {target};    [{min},{max}]; ({constraint}); {description}
-````
+```
+
 **Note:**
 * Use 2 spaces per indentation level (no tabs).
 * Always add a space after colons (`key: value`, not `key:value`).
@@ -137,7 +138,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
 | Element         | Description                               | Notation           | Order | Required              | Example                 |
 |-----------------|-------------------------------------------|--------------------|-------|-----------------------|-------------------------|
 | **{data_type}** | The type for attributes                   | type name          | 1     | Yes (for attributes)  | `string`                |
-| **{target}**    | The target entity for relations           | `->`               | 1     | Yes (for relations)   | `-> Author`             |
+| **{target}**    | The target entity or entity.attribute for relations           | `->`               | 1     | Yes (for relations)   | `-> Author`             |
 | **{min}/{max}** | Minimum and maximum cardinality           | `[min,max]`        | 2     | No                    | `[1,1]`, `[0,*]`        |
 | **{constraint}**| Labels or key-value pairs in parentheses  | `( … )`            | 3     | No                    | `(pk)`                  |
 | **{description}** | Human-readable description              | description        | 4     | No                    | `\| Book title`         |
@@ -148,7 +149,7 @@ Each `{attribute}` and `{relation}` key MUST have a YAML value that specifies it
     {relation}:  {target};    [{min},{max}]; ({constraint}); {description}
 ```
 **Note:**
-* Elements MUST be separated by semi-colons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
+* Elements MUST be separated by semicolons `;`, but CAN be omitted, e.g. `{attribute}: {data_type}; {description}`.
 * Default `{cardinality}` is `[0,*]` and rest is empty.
 * The values of `{cardinality}` and `{constraint}` are inferred from their notational forms, i.e. `[]` and `()`.
 * Additional whitespace MAY be used within a YAML value for readability; it is not significant for parsing.
@@ -168,7 +169,7 @@ Parsers MUST process values **right-to-left** over semicolon-delimited segments 
 Only the `{data_type}` or `{target}` element is REQUIRED; other segments are OPTIONAL and MAY be omitted with their preceding semicolons.
 
 **Note:**
-* `{description}` CANNOT begin `[` or `(`, also not be enclosed with `[...]` or `(…)`.
+* If a description begins with [ or (, it MUST be quoted. Descriptions MUST NOT be enclosed in [] or ().
 * Parsers must map keywords to numeric pairs before validation (e.g., `[required*]` → `[1,*]`).
 
 ---
@@ -196,7 +197,7 @@ UMS supports multiple naming conventions to accommodate different programming an
   "{@metadata}": "..."
   {entity}:
     "{@metadata}": "..."
-````
+```
 
 ---
 
@@ -289,6 +290,7 @@ Attributes MAY allow a union of multiple data types using the `union(...)` const
 
 The `{target}` MUST resolve unambiguously to an entity or one of its attributes using dot-notation.
 * Relations are indicated by the symbol `->`.
+* If `{target}` omits an attribute (e.g., `-> Author`), processors MUST join to the target’s primary key.
 
 ---
 
@@ -340,14 +342,15 @@ Reference to a specific attribute of the entity (typically a primary/foreign key
 Reference to multiple attributes in the relation:
 
 ```yaml
-    {relation}: {attr1},{attr2} -> {entity}.{attr1},{attr2}
+    {relation}: {attr1},{attr2} -> {entity}.{attr1},{attr2}           # shorthand
+    {relation}: {attr1},{attr2} -> {entity}.{attr1},{entity}.{attr2}  # expanded
 ```
 
 ---
 
 **Note:**
 * Composite relations list multiple entity attributes separated by commas (no spaces).
-* `{entity}.{attr1},{attr2}` is the same as `{entity}.{attr1},{entity}.{attr2}`.
+* In composite targets, omitted schema/entity prefixes inherit the last specified prefix; processors MUST apply this prefix carry-forward before resolution.
 
 #### External Relation
 
@@ -516,7 +519,7 @@ Prefixes provide namespace abbreviations for IRIs and MAY be used anywhere an id
     },
     "Author": {
       "id": "uuid; [1,1]; (pk); Unique identifier",
-      "name": "string; [1,1]; Author's name",
+      "name": "string; [1,1]; Author's name"
     }
   }
 }
