@@ -35,8 +35,8 @@ bookstore:
 
 1. **Declare a schema name** at the root (e.g., `bookstore:`).
 2. **Define entities** under the schema (e.g., `Book`, `Author`).
-3. **Add attributes** as key–value pairs with a data type (e.g., `title: string`).
-4. **Add relations** using `->` to link entities (e.g., `author: -> Author`).
+3. **Add attributes** under the entities with a data type (e.g., `title: string`).
+4. **Add relations** under the entities using `->` to link entities (e.g., `author: -> Author`).
 5. **Optionally specify cardinality, constraints, and descriptions** using semicolon-delimited segments:
 
    * Cardinality: `[min,max]` (default `[0,*]`)
