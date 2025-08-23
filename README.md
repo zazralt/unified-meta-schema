@@ -297,6 +297,10 @@ The `{target}` MUST resolve unambiguously to an entity or one of its attributes 
 * Relations are indicated by the symbol `->`.
 * If `{target}` omits an attribute (e.g., `-> Author`), processors MUST join to the target’s primary key.
 
+There are two kinds of relations:
+* **Semantic Relation**: links between entities, i.e. `{relation}: -> {entity}`
+* **Referential Relation**: links between attributes that enforce data integrity, i.e. `{relation}: {attr} -> {entity}.{attr}`.
+
 ---
 
 #### Dot-Notation
