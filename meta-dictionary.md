@@ -1,4 +1,4 @@
-# Unified Meta Diciontary
+# Unified Meta Dictionary
 
 ## Structure
 
