@@ -3,7 +3,7 @@
 
 ```yaml
 {dictionary}
-  {term}:      {pref_label}; {alt_label}; {example}; {defintion}
+  {term}:      {name}; {synonyms}; {example}; {defintion}
     {term}:    ...
       {term}:  ...
 ```
